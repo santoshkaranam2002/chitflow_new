@@ -2,40 +2,9 @@
 
 :host { display: block; height: 100%; }
 
-.stage {
-  position: relative; display: flex; align-items: center; justify-content: center; gap: 72px; width: 100%; height: 100%; overflow: hidden;
-  padding: env(safe-area-inset-top, 0) 0 env(safe-area-inset-bottom, 0);
-  background: linear-gradient(135deg, var(--cf-stage-a), var(--cf-stage-b)); transition: background 0.4s;
-
-  &__orb { position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.55; animation: drift 14s ease-in-out infinite; pointer-events: none;
-    &--1 { width: 360px; height: 360px; background: #ff7a3d; top: -90px; left: -60px; }
-    &--2 { width: 300px; height: 300px; background: #ffc24b; bottom: -80px; right: 10%; animation-delay: -5s; }
-    &--3 { width: 220px; height: 220px; background: #ff4d1c; top: 30%; right: -60px; animation-delay: -9s; opacity: 0.35; } }
-
-  &__brand {
-    position: relative; z-index: 1; max-width: 360px; color: var(--cf-stage-text); display: none;
-    h1 { font-size: 64px; font-weight: 800; letter-spacing: -0.04em; line-height: 1; margin: 14px 0 6px; animation: fade-up 0.7s $ease-out backwards 0.1s; span { @include text-gradient($gradient-rich); } }
-    p { font-size: 18px; opacity: 0.7; margin-bottom: 28px; animation: fade-up 0.7s $ease-out backwards 0.2s; }
-    ul { list-style: none; display: grid; gap: 14px; }
-    li { display: flex; align-items: center; gap: 12px; font-size: 15px; font-weight: 500; @include reveal(120ms, 350ms);
-      b { width: 10px; height: 10px; border-radius: 50%; background: $gradient; box-shadow: 0 0 0 5px rgba(249, 115, 22, 0.18); } }
-  }
-  &__badge { display: inline-block; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; color: $primary; background: rgba(249, 115, 22, 0.12); border: 1px solid rgba(249, 115, 22, 0.25); animation: fade-up 0.7s $ease-out backwards; }
+// Full-screen app (no phone frame)
+.app {
+  position: relative; display: flex; flex-direction: column;
+  width: 100%; height: 100%; overflow: hidden;
+  background: $bg; transition: background 0.3s;
 }
-
-// Phone frame on the web, full screen on mobile
-.phone {
-  position: relative; z-index: 1; display: flex; flex-direction: column; overflow: hidden;
-  width: $phone-width; height: 100%; max-height: $phone-height; background: $bg;
-  border-radius: 44px; border: 1px solid var(--cf-frame);
-  box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.35), 0 30px 80px rgba(120, 50, 10, 0.28);
-  animation: pop-in 0.7s $ease-out backwards;
-  transition: background 0.3s;
-
-  @media (max-width: $phone-breakpoint) {
-    width: 100%; max-height: none; border: 0; border-radius: 0; box-shadow: none; animation: none;
-  }
-}
-
-@media (min-width: 1000px) { .stage__brand { display: block; } }
-@media (max-height: 860px) and (min-width: 431px) { .phone { max-height: calc(100% - 24px); } }
