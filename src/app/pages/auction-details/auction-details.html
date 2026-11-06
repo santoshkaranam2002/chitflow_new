@@ -1,0 +1,34 @@
+<app-page-header title="Auction Details" [subtitle]="auction().name" />
+
+<div class="hero row-gap auction-hero">
+  <span class="hero__sheen"></span>
+  <div class="auction-hero__icon"><app-icon [name]="auction().icon" [size]="28" /></div>
+  <div class="auction-hero__text"><b class="auction-hero__name">{{ auction().name }}</b><b class="auction-hero__amount">₹{{ auction().value | inr }}</b></div>
+  <span class="pill auction-hero__status" [ngClass]="statusClass(auction().status)">{{ auction().status }}</span>
+</div>
+
+@if (auction().status === 'Upcoming') {
+  <div class="auction-count">
+    @for (p of parts(); track p.label; let i = $index) {
+      <div [style.--i]="i"><b>{{ p.value }}</b><span>{{ p.label }}</span></div>
+    }
+  </div>
+}
+
+<div class="card card--static">
+  @for (r of info(); track r.label) {
+    <div class="info-row"><span>{{ r.label }}</span><b>{{ r.value }}</b></div>
+  }
+  <div class="info-row"><span>Status</span><span class="pill" [ngClass]="statusClass(auction().status)">{{ auction().status }}</span></div>
+</div>
+
+<div class="spacer"></div>
+@if (auction().status === 'Completed') {
+  <a class="btn" routerLink="/auctions/result"><app-icon name="trophy" [size]="18" /> View Result</a>
+} @else {
+  <a class="btn" routerLink="/auctions/live" [queryParams]="{ id: auction().id }"><app-icon name="gavel" [size]="18" /> {{ auction().status === 'Live' ? 'Join Live Auction' : 'Start Auction' }}</a>
+  <div class="spacer"></div>
+  <button class="btn btn--soft" type="button" (click)="remind()">
+    <app-icon [name]="reminderOn() ? 'check' : 'bell'" [size]="18" /> {{ reminderOn() ? 'Reminder Set' : 'Set Reminder' }}
+  </button>
+}

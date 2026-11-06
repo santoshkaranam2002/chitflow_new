@@ -1,0 +1,11 @@
+@use 'global' as *;
+:host { display: block; }
+.member-profile {
+  position: relative; overflow: hidden; text-align: center; padding-top: 52px;
+  &__cover { position: absolute; top: 0; left: 0; right: 0; height: 74px; background: $gradient-rich; &::after { @include orb(120px, -50px, -30px); } }
+  .avatar { position: relative; }
+  &__name { font-size: 18px; }
+  &__actions { display: flex; gap: 10px; margin-top: 16px; .btn { flex: 1; } }
+}
+.member-stats { gap: 16px; justify-content: flex-start;
+  &__text { display: flex; flex-direction: column; gap: 3px; flex: 1; b { font-size: 24px; letter-spacing: -0.02em; } } }

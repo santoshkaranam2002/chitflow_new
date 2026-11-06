@@ -1,0 +1,139 @@
+@use 'global' as *;
+
+// ---------- helpers ----------
+.row { @include flex-between; }
+.row-gap { display: flex; align-items: center; gap: 12px; }
+.muted { color: $muted; font-size: 11px; }
+.pos { color: $success; font-weight: 700; }
+.neg { color: $danger; font-weight: 700; }
+.spacer { height: 14px; }
+.section-title {
+  font-size: 15px; font-weight: 700; margin: 18px 0 10px; letter-spacing: -0.01em;
+  &.row { align-items: center; }
+}
+.link { color: $primary; font-size: 11px; cursor: pointer; font-weight: 600; transition: opacity 0.2s; &:hover { opacity: 0.7; } }
+.stack > * + * { margin-top: 10px; }
+
+// ---------- card ----------
+.card {
+  display: block; background: $card; border: 1px solid $line; border-radius: $radius-card;
+  padding: 14px; margin-bottom: 12px; box-shadow: $shadow-card; cursor: pointer; position: relative;
+  @include interactive;
+  &--static { cursor: default; transform: none; &:hover { transform: none; box-shadow: $shadow-card; } &:active { transform: none; } }
+  &--soft { background: $soft; border-color: $soft-line; }
+  &--glow { border-color: $soft-line; box-shadow: 0 8px 26px rgba(249, 115, 22, 0.14); }
+  // a card can also be a flex row (.card.row / .card.row-gap)
+  &.row { display: flex; justify-content: space-between; align-items: center; }
+  &.row-gap { display: flex; align-items: center; gap: 12px; }
+}
+
+// ---------- hero (orange gradient surface) ----------
+.hero {
+  position: relative; overflow: hidden; color: $white; border-radius: 22px; padding: 18px; margin-bottom: 14px;
+  background: $gradient-rich; box-shadow: 0 14px 30px rgba(249, 80, 20, 0.32);
+  small { opacity: 0.9; font-size: 12px; }
+  &::before { @include orb(170px, -60px, -50px); }
+  &::after { @include orb(110px, auto, auto, -50px, -30px, 0.1); }
+  > * { position: relative; z-index: 1; }
+  // slow sheen sweeping across the card
+  .hero__sheen { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; pointer-events: none; z-index: 0;
+    &::after { content: ''; position: absolute; top: 0; bottom: 0; width: 40%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent); animation: shimmer 5.5s ease-in-out infinite; }
+  }
+}
+
+// ---------- buttons ----------
+.btn {
+  position: relative; overflow: hidden; width: 100%; padding: 14px; border-radius: 24px; background: $gradient-h; color: $white;
+  font-weight: 700; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 8px;
+  box-shadow: $shadow-glow; transition: transform 0.2s $ease-out, box-shadow 0.25s, opacity 0.2s, filter 0.2s;
+  @media (hover: hover) { &:hover { transform: translateY(-1px); filter: brightness(1.05); box-shadow: 0 14px 28px rgba(249, 115, 22, 0.42); } }
+  &:active { transform: scale(0.97); }
+  &::after { content: ''; position: absolute; top: 0; bottom: 0; left: 0; width: 40%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent); transform: translateX(-120%) skewX(-18deg); }
+  @media (hover: hover) { &:hover::after { animation: shimmer 0.9s ease; } }
+  &--soft { background: $soft; color: $primary; padding: 12px; box-shadow: none; border: 1px solid $soft-line;
+    &:hover { box-shadow: none; } &::after { display: none; } }
+  &--ghost { background: transparent; color: $text; border: 1px solid $line; box-shadow: none; &::after { display: none; } &:hover { box-shadow: none; } }
+  &--sm { width: auto; padding: 8px 14px; font-size: 12px; }
+  &--danger { background: linear-gradient(90deg, #e5432d, #ff6a4d); box-shadow: 0 10px 24px rgba(229, 67, 45, 0.3); }
+  &[disabled], &--loading { pointer-events: none; opacity: 0.85; }
+  .spin { width: 16px; height: 16px; border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.4); border-top-color: #fff; animation: spin 0.7s linear infinite; }
+}
+.icon-btn {
+  display: flex; align-items: center; justify-content: center; padding: 6px; border-radius: 50%; color: $text; position: relative;
+  transition: background 0.2s, transform 0.2s $ease-spring, color 0.2s;
+  &:hover { background: $surface; } &:active { transform: scale(0.88); }
+  &--primary { color: $primary; background: $soft; }
+}
+
+// ---------- pill ----------
+.pill {
+  display: inline-flex; align-items: center; gap: 5px; font-size: 10px; padding: 3px 9px; border-radius: 10px; font-weight: 700; white-space: nowrap;
+  &--ok { background: var(--cf-ok-bg); color: var(--cf-ok); }
+  &--pd { background: var(--cf-pd-bg); color: var(--cf-pd); }
+  &--up { background: var(--cf-up-bg); color: var(--cf-up); }
+  &--dn { background: var(--cf-dn-bg); color: var(--cf-dn); }
+  &--bad { background: var(--cf-bad-bg); color: var(--cf-bad); }
+  &--primary { background: $primary; color: $white; }
+  &--live { background: var(--cf-ok-bg); color: var(--cf-ok);
+    &::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: $success; animation: pulse-ring 1.4s infinite; } }
+}
+
+// ---------- avatar ----------
+.avatar {
+  @include flex-center; width: 42px; height: 42px; border-radius: 50%; font-weight: 700; flex: none; color: #5b3a2a;
+  &--sm { width: 34px; height: 34px; font-size: 12px; }
+  &--lg { width: 72px; height: 72px; font-size: 22px; margin: 0 auto 8px; box-shadow: 0 0 0 4px $card, 0 0 0 6px $soft-line; }
+  &--xl { width: 84px; height: 84px; font-size: 26px; }
+  &--primary { background: $gradient; color: $white; }
+}
+
+// ---------- progress bar ----------
+.bar {
+  height: 6px; background: $surface; border-radius: 6px; margin: 6px 0; overflow: hidden;
+  i { display: block; height: 100%; background: $gradient-h; border-radius: 6px; transform-origin: left; animation: grow-x 0.9s $ease-out backwards 0.15s; }
+}
+
+// ---------- bar chart ----------
+.chart {
+  display: flex; align-items: flex-end; gap: 14px; height: 150px; padding: 8px 10px 0;
+  div { flex: 1; text-align: center; font-size: 10px; color: $muted; position: relative; }
+  i { display: block; background: linear-gradient($primary-deep, $primary-light); border-radius: 7px 7px 0 0; margin-bottom: 4px; transform-origin: bottom; animation: grow-y 0.8s $ease-out backwards; animation-delay: calc(var(--i, 0) * 80ms + 120ms); transition: filter 0.2s; }
+  div:hover i { filter: brightness(1.1) saturate(1.2); }
+  &--mini { height: 64px; width: 120px; gap: 5px; padding: 0; }
+}
+
+// ---------- info list ----------
+.info-row { @include flex-between; padding: 10px 0; font-size: 13px; border-bottom: 1px dashed $line; &:last-child { border-bottom: 0; } span { color: $muted; } }
+
+// ---------- table ----------
+.table-wrap { overflow-x: auto; padding: 8px 12px; @include hide-scrollbar; }
+.table {
+  width: 100%; border-collapse: collapse; font-size: 12px;
+  th { text-align: left; color: $muted; padding: 8px 4px; border-bottom: 1px solid $line; white-space: nowrap; font-weight: 600; }
+  td { padding: 11px 4px; border-bottom: 1px solid $line; }
+  tr:last-child td { border-bottom: 0; }
+}
+
+// ---------- selectable chips ----------
+.chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip {
+  padding: 9px 15px; border-radius: 18px; border: 1px solid $line; font-size: 12px; background: $card; color: $text; font-weight: 500;
+  transition: all 0.25s $ease-out;
+  &:hover { border-color: $primary; }
+  &:active { transform: scale(0.94); }
+  &--active { background: $gradient-h; color: $white; border-color: transparent; box-shadow: 0 6px 14px rgba(249, 115, 22, 0.3); font-weight: 600; }
+}
+
+// ---------- switch ----------
+.switch {
+  width: 46px; height: 26px; border-radius: 13px; background: var(--cf-up-bg); position: relative; flex: none; transition: background 0.3s; border: 1px solid $line;
+  i { position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; border-radius: 50%; background: $white; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25); transition: transform 0.35s $ease-spring; }
+  &--on { background: $gradient-h; border-color: transparent; i { transform: translateX(20px); } }
+}
+
+// ---------- faq ----------
+.faq {
+  border-bottom: 1px solid $line; padding: 14px 0; font-size: 13px;
+  summary { font-weight: 600; cursor: pointer; }
+  p { margin-top: 8px; font-size: 12px; color: $muted; line-height: 1.5; }
+}

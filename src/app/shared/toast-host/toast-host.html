@@ -1,0 +1,8 @@
+<div class="toasts" aria-live="polite">
+  @for (t of toastService.toasts(); track t.id) {
+    <div class="toast" [class]="'toast toast--' + t.kind" (click)="toastService.dismiss(t.id)">
+      <span class="toast__icon"><app-icon [name]="t.icon" [size]="16" [stroke]="2.6" /></span>
+      <span class="toast__msg">{{ t.message }}</span>
+    </div>
+  }
+</div>

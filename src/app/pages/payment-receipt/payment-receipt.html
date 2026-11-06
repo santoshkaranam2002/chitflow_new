@@ -1,0 +1,32 @@
+<app-confetti />
+<app-page-header title="Payment Receipt" />
+
+<div class="receipt">
+  <div class="receipt__top">
+    <div class="receipt__tick">
+      <svg viewBox="0 0 52 52" width="72" height="72"><circle cx="26" cy="26" r="24" /><path d="M15 27l8 8 15-17" /></svg>
+    </div>
+    <b>Payment Successful</b>
+    <b class="receipt__amount">₹ <span [appCountUp]="receipt().amount"></span></b>
+    <span class="muted">{{ receipt().date | date: 'dd MMM yyyy, h:mm a' }}</span>
+  </div>
+
+  <div class="receipt__tear"><i></i><span></span><i></i></div>
+
+  <div class="receipt__body">
+    @for (r of rows(); track r.label) {
+      <div class="info-row">
+        <span>{{ r.label }}</span>
+        @if (r.label === 'Status') { <span class="pill pill--ok">{{ r.value }}</span> } @else { <b>{{ r.value }}</b> }
+      </div>
+    }
+    <div class="receipt__barcode" aria-hidden="true">@for (n of [3,1,2,1,3,2,1,1,3,2,1,2,3,1,2,1,1,3,2,1,3,1,2,2,1,3]; track $index) { <i [style.width.px]="n * 1.6"></i> }</div>
+  </div>
+</div>
+
+<div class="receipt-actions">
+  <button class="btn btn--soft" type="button" (click)="download()"><app-icon name="download" [size]="16" /> Download</button>
+  <button class="btn btn--soft" type="button" (click)="share()"><app-icon name="share" [size]="16" /> Share</button>
+</div>
+<div class="spacer"></div>
+<a class="btn" routerLink="/payments">Done</a>

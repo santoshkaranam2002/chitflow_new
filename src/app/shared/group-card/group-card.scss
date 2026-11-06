@@ -1,0 +1,16 @@
+@use 'global' as *;
+:host { display: block; }
+.group-card {
+  overflow: hidden;
+  &::before { content: ''; position: absolute; left: 0; top: 14px; bottom: 14px; width: 3px; border-radius: 0 3px 3px 0; background: var(--accent); opacity: 0.8; }
+  &__info { display: flex; flex-direction: column; gap: 2px; }
+  &__name { font-size: 14px; }
+  &__amount { font-size: 17px; letter-spacing: -0.02em; }
+  &__side { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+  &__chev { transition: transform 0.25s $ease-out; }
+  &:hover &__chev { transform: translateX(3px); color: $primary; }
+  &__foot { margin-top: 12px; align-items: flex-end; }
+  &__progress { flex: 1; }
+  &__percent { font-weight: 700; color: $primary; }
+  &__next { margin-left: 16px; text-align: right; line-height: 1.5; b { color: $text; font-size: 12px; } }
+}

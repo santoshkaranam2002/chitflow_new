@@ -1,0 +1,37 @@
+<app-page-header title="Make Payment" subtitle="Secure & instant" />
+
+<label class="label">Select group</label>
+<select class="input" [ngModel]="groupId()" (ngModelChange)="pick($event)">
+  @for (g of groups(); track g.id) { <option [value]="g.id">{{ g.name }} (₹{{ g.monthly | inr }})</option> }
+</select>
+
+<label class="label">Amount (₹)</label>
+<div class="mp-amount">
+  <span>₹</span>
+  <input type="number" [(ngModel)]="amount" aria-label="Amount" />
+</div>
+
+<label class="label">Payment method</label>
+<div class="mp-methods">
+  @for (m of methods; track m.id) {
+    <button type="button" class="mp-method" [class.mp-method--active]="method() === m.id" (click)="method.set(m.id)">
+      <span class="mp-method__icon"><app-icon [name]="m.icon" [size]="18" /></span>
+      <b>{{ m.id }}</b><small>{{ m.hint }}</small>
+      <i class="mp-method__tick"><app-icon name="check" [size]="11" [stroke]="3.4" /></i>
+    </button>
+  }
+</div>
+
+<label class="label">Note (optional)</label>
+<input class="input" placeholder="Add a note" [(ngModel)]="note" />
+
+<div class="card card--static mp-summary">
+  <div class="info-row"><span>Contribution – {{ group().name }}</span><b>₹{{ amount() | inr }}</b></div>
+  <div class="info-row"><span>Convenience fee</span><b class="pos">FREE</b></div>
+  <div class="info-row mp-summary__total"><span>Total payable</span><b>₹{{ amount() | inr }}</b></div>
+</div>
+
+<button class="btn" [class.btn--loading]="processing()" type="button" (click)="pay()">
+  @if (processing()) { <span class="spin"></span> Processing payment… } @else { <app-icon name="lock" [size]="16" /> Pay ₹{{ amount() | inr }} Now }
+</button>
+<p class="muted mp-secure"><app-icon name="shield" [size]="12" /> 256-bit encrypted • RBI compliant</p>

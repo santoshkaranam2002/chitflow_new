@@ -1,0 +1,23 @@
+@use 'global' as *;
+.login {
+  position: relative; display: flex; flex-direction: column;
+  > * { position: relative; z-index: 1; }
+  &__blob { position: absolute !important; z-index: 0 !important; border-radius: 50%; filter: blur(50px); opacity: 0.35; animation: drift 12s ease-in-out infinite;
+    &--1 { width: 220px; height: 220px; background: $primary; top: 20px; right: -90px; }
+    &--2 { width: 180px; height: 180px; background: $gold; top: 200px; left: -80px; animation-delay: -6s; } }
+  &__brand { text-align: center; padding-top: 30px; h1 { font-size: 34px; font-weight: 800; letter-spacing: -0.04em; margin-top: 14px; animation: fade-up 0.6s $ease-out backwards 0.1s; span { @include text-gradient($gradient-rich); } } p { animation: fade-up 0.6s $ease-out backwards 0.2s; } }
+  &__form { margin-top: 30px; animation: fade-up 0.6s $ease-out backwards 0.25s; h2 { font-size: 20px; } }
+  &__sub { margin: 4px 0 18px; font-size: 12px; }
+  &__field { @include reveal(70ms, 300ms); }
+  &__meta { margin: 2px 0 18px; }
+  &__remember { display: flex; align-items: center; gap: 8px; font-size: 12px; color: $muted; }
+  &__check { width: 18px; height: 18px; border-radius: 6px; border: 1.5px solid $line; display: flex; align-items: center; justify-content: center; color: transparent; transition: all 0.25s $ease-spring;
+    &--on { background: $gradient-h; border-color: transparent; color: $white; transform: scale(1.05); } }
+  &__forgot { color: $primary; font-size: 12px; font-weight: 600; }
+  &__divider { display: flex; align-items: center; gap: 12px; margin: 18px 0; color: $muted; font-size: 11px;
+    &::before, &::after { content: ''; flex: 1; height: 1px; background: $line; } }
+  &__bio { padding: 13px; }
+  &__foot { text-align: center; margin-top: 18px; font-size: 12px; a { color: $primary; font-weight: 700; } }
+  &__trust { margin-top: auto; padding-top: 26px; display: flex; justify-content: center; gap: 16px; color: $muted; font-size: 11px; animation: fade-in 1s 0.8s backwards;
+    span { display: flex; align-items: center; gap: 5px; app-icon { color: $primary; } } }
+}

@@ -1,0 +1,42 @@
+@use 'global' as *;
+.home-top {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;
+  &__name { display: flex; flex-direction: column; b { font-size: 15px; } }
+  &__bell { position: relative; }
+  &__dot { position: absolute; top: -2px; right: -3px; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 8px; background: $danger; color: $white; border: 2px solid $bg; font-size: 9px; font-style: normal; font-weight: 800; display: flex; align-items: center; justify-content: center; animation: pulse-ring-primary 2s infinite; }
+}
+.home-hello { display: flex; align-items: baseline; gap: 6px; margin-bottom: 12px; font-size: 18px; animation: fade-up 0.5s $ease-out backwards 0.05s; .muted { font-size: 13px; } b { font-size: 20px; letter-spacing: -0.02em; } }
+
+.home-balance {
+  animation: fade-up 0.6s $ease-out backwards 0.1s;
+  &__eye { color: $white; opacity: 0.9; display: flex; padding: 4px; border-radius: 50%; transition: background 0.2s; &:hover { background: rgba(255, 255, 255, 0.2); } }
+  &__main { margin: 4px 0 6px; }
+  &__amount { font-size: 32px; font-weight: 800; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+  &__delta { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 10px; @include glass(0.18); }
+  &__stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px;
+    div { @include glass(0.14); border-radius: 14px; padding: 9px 10px; display: flex; flex-direction: column; gap: 2px; }
+    small { font-size: 10px; } b { font-size: 16px; } }
+}
+.home-actions { display: flex; gap: 10px; animation: fade-up 0.6s $ease-out backwards 0.2s; }
+
+.home-quick {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 14px 0 4px;
+  &__item { display: flex; flex-direction: column; align-items: center; gap: 7px; font-size: 11px; font-weight: 600; color: $text; @include reveal(60ms, 250ms); transition: transform 0.25s $ease-spring;
+    span { width: 50px; height: 50px; border-radius: 18px; background: $card; border: 1px solid $line; box-shadow: $shadow-card; color: $primary; display: flex; align-items: center; justify-content: center; transition: all 0.3s $ease-spring; }
+    &:hover span { background: $gradient; color: $white; border-color: transparent; transform: translateY(-4px) rotate(-4deg); box-shadow: $shadow-glow; }
+    &:active { transform: scale(0.92); } }
+}
+
+.home-auction {
+  display: flex; justify-content: space-between; align-items: center; margin-top: 12px; margin-bottom: 0; background: $soft; animation: fade-up 0.6s $ease-out backwards 0.3s;
+  &__info { display: flex; flex-direction: column; gap: 3px; align-items: flex-start; b { font-size: 13px; } }
+  &__timer { text-align: right; display: flex; flex-direction: column; b { font-size: 15px; color: $primary; font-variant-numeric: tabular-nums; } }
+}
+
+.home-groups {
+  display: flex; gap: 10px; overflow-x: auto; margin: 0 -16px; padding: 4px 16px 8px; scroll-snap-type: x mandatory; @include hide-scrollbar;
+  &__item { flex: 0 0 46%; scroll-snap-align: start; margin: 0; padding: 12px; @include reveal(70ms, 200ms); }
+  &__head { gap: 8px; margin-bottom: 4px; b { font-size: 12px; } }
+}
+
+.home-tip { display: flex; gap: 10px; align-items: flex-start; margin-top: 8px; padding: 14px; border-radius: 16px; font-size: 12px; line-height: 1.5; background: $soft; border: 1px dashed $soft-line; color: $text; app-icon { color: $primary; margin-top: 1px; } }

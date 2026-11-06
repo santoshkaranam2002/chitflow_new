@@ -1,0 +1,27 @@
+<div class="overlay" [class.overlay--show]="open()" (click)="closed.emit()"></div>
+<aside class="drawer" [class.drawer--open]="open()" [attr.aria-hidden]="!open()">
+  <a class="drawer__top" routerLink="/profile" (click)="closed.emit()">
+    <div class="avatar drawer__avatar">{{ user().initials }}</div>
+    <div class="drawer__who"><b>{{ user().name }}</b><small>Member • Gold tier</small></div>
+    <span class="drawer__edit"><app-icon name="chev" [size]="18" /></span>
+  </a>
+
+  <nav class="drawer__menu">
+    @for (m of menu; track m.path; let i = $index) {
+      <a class="drawer__link" [routerLink]="m.path" routerLinkActive="drawer__link--active" [style.--i]="i" (click)="closed.emit()">
+        <app-icon [name]="m.icon" [size]="20" />{{ m.label }}
+        @if (m.badge === 'unread' && unread() > 0) { <span class="pill pill--primary drawer__badge">{{ unread() }}</span> }
+      </a>
+    }
+  </nav>
+
+  <button class="drawer__theme" type="button" (click)="theme.toggle()">
+    <app-icon [name]="theme.isDark() ? 'moon' : 'sun'" [size]="20" />
+    <span>{{ theme.isDark() ? 'Dark mode' : 'Light mode' }}</span>
+    <span class="switch" [class.switch--on]="theme.isDark()"><i></i></span>
+  </button>
+
+  <button class="drawer__link drawer__link--logout" type="button" (click)="logout()">
+    <app-icon name="logout" [size]="20" />Logout
+  </button>
+</aside>

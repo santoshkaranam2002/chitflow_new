@@ -1,0 +1,6 @@
+:host { display: inline-flex; line-height: 0; }
+.spark {
+  &__area { fill: rgba(255, 255, 255, 0.16); animation: fade-in 1s 0.4s backwards; }
+  &__line { fill: none; stroke: #fff; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1.4s 0.2s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  &__dot { fill: #fff; animation: pop-in 0.4s 1.4s backwards; }
+}

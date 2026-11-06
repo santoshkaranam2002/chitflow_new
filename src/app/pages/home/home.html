@@ -1,0 +1,91 @@
+<div class="home-top">
+  <div class="row-gap home-top__brand">
+    <app-logo [size]="38" />
+    <div class="home-top__name"><b>ChitFlow</b><span class="muted">Together We Grow</span></div>
+  </div>
+  <div class="row-gap">
+    <a class="home-top__bell icon-btn" routerLink="/notifications" aria-label="Notifications">
+      <app-icon name="bell" [size]="22" />
+      @if (unread() > 0) { <i class="home-top__dot">{{ unread() }}</i> }
+    </a>
+    <a class="avatar avatar--sm avatar--primary" routerLink="/profile">{{ user.profile().initials }}</a>
+  </div>
+</div>
+
+<div class="home-hello"><span class="muted">{{ hello }},</span><b>{{ firstName() }} 👋</b></div>
+
+<div class="hero home-balance">
+  <span class="hero__sheen"></span>
+  <div class="row">
+    <small>Total Chit Balance</small>
+    <button class="home-balance__eye" type="button" (click)="user.balanceHidden.set(!user.balanceHidden())" aria-label="Toggle balance">
+      <app-icon [name]="user.balanceHidden() ? 'eyeoff' : 'eye'" [size]="18" />
+    </button>
+  </div>
+  <div class="row home-balance__main">
+    <div class="home-balance__amount">
+      @if (user.balanceHidden()) { <span>₹ ••••••</span> } @else { <span>₹ <span [appCountUp]="balance"></span></span> }
+    </div>
+    <app-sparkline [values]="trend" [width]="92" [height]="40" />
+  </div>
+  <span class="home-balance__delta"><app-icon name="up" [size]="12" [stroke]="3" /> 12% this month</span>
+  <div class="home-balance__stats">
+    <div><small>Active Groups</small><b>{{ groups().length }}</b></div>
+    <div><small>Total Members</small><b>{{ totalMembers() }}</b></div>
+    <div><small>Dues</small><b>₹{{ 18333 | inr }}</b></div>
+  </div>
+</div>
+
+<div class="home-actions">
+  <a class="btn btn--soft" routerLink="/payments/make"><app-icon name="card" [size]="18" /> Make Payment</a>
+  <a class="btn btn--soft" routerLink="/groups"><app-icon name="users" [size]="18" /> View Groups</a>
+</div>
+
+<div class="home-quick">
+  @for (a of actions; track a.label; let i = $index) {
+    <a class="home-quick__item" [routerLink]="a.path" [style.--i]="i">
+      <span><app-icon [name]="a.icon" [size]="20" /></span>{{ a.label }}
+    </a>
+  }
+</div>
+
+@if (nextAuction(); as auction) {
+  <a class="card card--glow home-auction" [routerLink]="auction.status === 'Live' ? '/auctions/live' : '/auctions/details'" [queryParams]="{ id: auction.id }">
+    <div class="row-gap">
+      <app-icon-tile [icon]="auction.icon" bg="#ffffff" color="#f26a1b" [size]="46" />
+      <div class="home-auction__info">
+        @if (auction.status === 'Live') { <span class="pill pill--live">LIVE NOW</span> } @else { <span class="pill pill--pd">NEXT AUCTION</span> }
+        <b>{{ auction.name }} • ₹{{ auction.value | inr }}</b>
+        <span class="muted">{{ auction.date | date: 'dd MMM, h:mm a' }}</span>
+      </div>
+    </div>
+    <div class="home-auction__timer">
+      <small class="muted">{{ auction.status === 'Live' ? 'Started' : 'Starts in' }}</small>
+      <b>{{ auction.status === 'Live' ? 'Join' : countdown() }}</b>
+    </div>
+  </a>
+}
+
+<div class="row section-title"><span>My Chit Groups</span><a class="link" routerLink="/groups">View All</a></div>
+<div class="home-groups">
+  @for (g of groups(); track g.id; let i = $index) {
+    <a class="card home-groups__item" routerLink="/groups/details" [queryParams]="{ id: g.id }" [style.--i]="i">
+      <div class="row-gap home-groups__head">
+        <app-icon-tile [icon]="g.icon" [bg]="g.bg" [color]="g.color" [size]="34" />
+        <div><b>{{ g.name }}</b><br><span class="muted">₹{{ g.value | inr }}</span></div>
+      </div>
+      <div class="bar"><i [style.width.%]="(g.paid / g.members) * 100"></i></div>
+      <span class="muted">{{ g.paid }}/{{ g.members }} paid<br>Next: {{ g.nextAuction | date: 'dd MMM' }}</span>
+    </a>
+  }
+</div>
+
+<div class="row section-title"><span>Recent Transactions</span><a class="link" routerLink="/payments">View All</a></div>
+@for (p of payments(); track p.id; let i = $index) {
+  <app-payment-item class="reveal" [style.--i]="i" [payment]="p" />
+}
+
+<div class="home-tip">
+  <app-icon name="sparkle" [size]="20" />
+  <span><b>Pro tip:</b> pay before the 10th every month to avoid late penalties and keep your Gold tier.</span>
+</div>

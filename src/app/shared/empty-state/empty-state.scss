@@ -1,0 +1,6 @@
+@use 'global' as *;
+:host { display: block; }
+.empty {
+  display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; padding: 36px 20px; animation: fade-up 0.5s $ease-out;
+  &__icon { width: 68px; height: 68px; border-radius: 50%; background: $soft; color: $primary; display: flex; align-items: center; justify-content: center; margin-bottom: 6px; animation: float 3.5s ease-in-out infinite; }
+}

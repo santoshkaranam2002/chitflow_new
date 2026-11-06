@@ -1,0 +1,14 @@
+@use 'global' as *;
+:host { display: block; }
+.profile-head {
+  position: relative; display: flex; flex-direction: column; align-items: center; padding: 70px 14px 16px; margin-bottom: 4px; border-radius: 24px; background: $card; border: 1px solid $line; box-shadow: $shadow-card; overflow: hidden; gap: 2px;
+  &__cover { position: absolute; top: 0; left: 0; right: 0; height: 92px; background: $gradient-rich; &::before { @include orb(150px, -60px, -40px); } &::after { @include orb(90px, 20px, auto, auto, 20px, 0.12); } }
+  &__avatar { position: absolute; top: 44px; .avatar { margin: 0; box-shadow: 0 0 0 5px $card, $shadow-glow; animation: pop-in 0.6s $ease-spring backwards 0.15s; } }
+  &__cam { position: absolute; right: -2px; bottom: -2px; width: 28px; height: 28px; border-radius: 50%; background: $text; color: $bg; border: 2px solid $card; display: flex; align-items: center; justify-content: center; transition: transform 0.25s $ease-spring; &:hover { transform: scale(1.12); } }
+  &__name { font-size: 18px; margin-top: 60px; letter-spacing: -0.02em; }
+  &__stats { display: grid; grid-template-columns: repeat(3, 1fr); width: 100%; margin-top: 14px; padding-top: 14px; border-top: 1px dashed $line;
+    div { display: flex; flex-direction: column; gap: 2px; text-align: center; &:not(:last-child) { border-right: 1px solid $line; } }
+    b { font-size: 16px; @include text-gradient($gradient); } span { font-size: 10px; color: $muted; } }
+}
+.profile-save--dirty { animation: pulse-ring-primary 1.8s infinite; }
+.profile-logout { color: $danger; }

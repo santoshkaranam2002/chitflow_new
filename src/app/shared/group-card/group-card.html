@@ -1,0 +1,22 @@
+<a class="card group-card" routerLink="/groups/details" [queryParams]="{ id: group().id }" [style.--accent]="group().color">
+  <div class="row">
+    <div class="row-gap">
+      <app-icon-tile [icon]="group().icon" [bg]="group().bg" [color]="group().color" />
+      <div class="group-card__info">
+        <b class="group-card__name">{{ group().name }}</b>
+        <b class="group-card__amount">₹{{ group().value | inr }}</b>
+      </div>
+    </div>
+    <div class="group-card__side">
+      @if (isToday()) { <span class="pill pill--live">Auction today</span> } @else { <span class="pill pill--up">{{ group().duration }} months</span> }
+      <span class="muted group-card__chev"><app-icon name="chev" [size]="18" /></span>
+    </div>
+  </div>
+  <div class="row group-card__foot">
+    <div class="group-card__progress">
+      <div class="row"><span class="muted">{{ group().paid }}/{{ group().members }} paid</span><span class="muted group-card__percent">{{ percent() }}%</span></div>
+      <div class="bar"><i [style.width.%]="percent()"></i></div>
+    </div>
+    <div class="muted group-card__next">Next Auction<br><b>{{ group().nextAuction | date: 'dd MMM yyyy' }}</b></div>
+  </div>
+</a>

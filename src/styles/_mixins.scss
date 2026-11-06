@@ -1,0 +1,39 @@
+@use 'variables' as *;
+
+@mixin flex-between { display: flex; justify-content: space-between; align-items: center; }
+@mixin flex-center { display: flex; align-items: center; justify-content: center; }
+@mixin hide-scrollbar { scrollbar-width: none; &::-webkit-scrollbar { display: none; } }
+
+// Soft lift on hover + press feedback on touch
+@mixin interactive($lift: -2px) {
+  transition: transform 0.25s $ease-out, box-shadow 0.25s $ease-out, border-color 0.25s;
+  @media (hover: hover) { &:hover { transform: translateY($lift); box-shadow: $shadow-pop; } }
+  &:active { transform: scale(0.98); }
+}
+
+// Frosted glass surface
+@mixin glass($alpha: 0.16) {
+  background: rgba(255, 255, 255, $alpha);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+// Decorative translucent circle used on gradient surfaces
+@mixin orb($size, $top: auto, $right: auto, $bottom: auto, $left: auto, $alpha: 0.14) {
+  content: ''; position: absolute; width: $size; height: $size; border-radius: 50%;
+  top: $top; right: $right; bottom: $bottom; left: $left;
+  background: rgba(255, 255, 255, $alpha); pointer-events: none;
+}
+
+// Staggered entrance. Set style="--i: n" on each child (or [style.--i]="$index").
+@mixin reveal($step: 55ms, $base: 0ms) {
+  animation: fade-up 0.5s $ease-out backwards;
+  animation-delay: calc(#{$base} + var(--i, 0) * #{$step});
+}
+
+@mixin text-gradient($g: $gradient-h) {
+  background: $g; -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+
+@mixin truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

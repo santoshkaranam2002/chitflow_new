@@ -1,0 +1,33 @@
+@use 'global' as *;
+.overlay {
+  position: absolute; inset: 0; background: rgba(10, 12, 20, 0.5); backdrop-filter: blur(3px); z-index: 20; opacity: 0; pointer-events: none; transition: opacity 0.35s;
+  &--show { opacity: 1; pointer-events: auto; }
+}
+.drawer {
+  position: absolute; left: 0; top: 0; bottom: 0; width: 80%; z-index: 21; background: $card; overflow-y: auto; @include hide-scrollbar;
+  display: flex; flex-direction: column; transform: translateX(-104%); transition: transform 0.45s $ease-out; box-shadow: 12px 0 40px rgba(0, 0, 0, 0.25);
+  border-radius: 0 28px 28px 0;
+  &--open { transform: none; .drawer__link { animation: slide-right 0.5s $ease-out backwards; animation-delay: calc(120ms + var(--i, 0) * 40ms); } }
+  &__top {
+    position: relative; overflow: hidden; display: flex; gap: 12px; align-items: center; background: $gradient-rich; color: $white; padding: 48px 18px 22px; margin-bottom: 8px;
+    border-radius: 0 28px 0 0;
+    &::before { @include orb(150px, -50px, -40px); } &::after { @include orb(90px, auto, auto, -30px, 40%, 0.1); }
+  }
+  &__avatar { background: $white; color: $primary-deep; position: relative; z-index: 1; width: 48px; height: 48px; }
+  &__who { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; gap: 2px; small { opacity: 0.85; } }
+  &__edit { position: relative; z-index: 1; opacity: 0.8; }
+  &__menu { padding: 0 10px; }
+  &__link {
+    display: flex; gap: 14px; align-items: center; padding: 12px 14px; font-size: 14px; color: $text; border-radius: 14px; width: 100%; text-align: left; margin-bottom: 2px;
+    transition: background 0.2s, color 0.2s, padding-left 0.25s $ease-out;
+    app-icon { color: $primary; }
+    &:hover { background: $surface; padding-left: 18px; }
+    &--active { background: $soft; color: $primary; font-weight: 700; }
+    &--logout { color: $danger; margin: auto 10px 16px; width: auto; app-icon { color: $danger; } &:hover { background: var(--cf-bad-bg); } }
+  }
+  &__badge { margin-left: auto; }
+  &__theme {
+    display: flex; align-items: center; gap: 14px; margin: 14px 10px 8px; padding: 12px 14px; border-radius: 14px; background: $surface; font-size: 14px; color: $text; text-align: left;
+    app-icon { color: $primary; } span:nth-child(2) { flex: 1; }
+  }
+}

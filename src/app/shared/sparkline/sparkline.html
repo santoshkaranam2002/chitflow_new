@@ -1,0 +1,5 @@
+<svg [attr.width]="width()" [attr.height]="height()" [attr.viewBox]="'0 0 ' + width() + ' ' + height()" overflow="visible">
+  <path class="spark__area" [attr.d]="area()" />
+  <path class="spark__line" [attr.d]="line()" pathLength="1" />
+  <circle class="spark__dot" [attr.cx]="last().x" [attr.cy]="last().y" r="3.5" />
+</svg>

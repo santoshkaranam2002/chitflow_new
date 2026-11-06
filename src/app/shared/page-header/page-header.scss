@@ -1,0 +1,8 @@
+@use 'global' as *;
+:host { display: block; }
+.page-header {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 16px; animation: slide-right 0.5s $ease-out backwards;
+  &__back { margin-left: -6px; background: $surface; &:hover { background: $soft; color: $primary; } }
+  &__title { flex: 1; min-width: 0; h2 { font-size: 18px; @include truncate; } }
+  &__actions { display: flex; align-items: center; gap: 4px; }
+}

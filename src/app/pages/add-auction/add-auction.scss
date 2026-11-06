@@ -1,0 +1,8 @@
+@use 'global' as *;
+:host { display: block; }
+.aa-summary {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 12px; border-radius: 20px; background: $gradient-rich; color: $white; box-shadow: 0 12px 26px rgba(249, 80, 20, 0.3); position: relative; overflow: hidden; margin-bottom: 4px;
+  &::after { @include orb(120px, -50px, -30px); }
+  div { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 2px; text-align: center; } small { font-size: 10px; opacity: 0.9; } b { font-size: 15px; }
+}
+.aa-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }

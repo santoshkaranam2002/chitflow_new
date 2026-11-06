@@ -1,0 +1,33 @@
+<app-page-header title="Member Details" />
+
+<div class="card card--static member-profile">
+  <div class="member-profile__cover"></div>
+  <div class="avatar avatar--lg" [style.background]="member().color">{{ member().initials }}</div>
+  <b class="member-profile__name">{{ member().name }}</b><br>
+  <span class="muted">Member No: {{ member().no }}</span><br><br>
+  <span class="pill" [ngClass]="member().status === 'Paid' ? 'pill--ok' : 'pill--pd'">{{ member().status }}</span>
+  <div class="member-profile__actions">
+    <a class="btn btn--soft" [href]="'tel:' + member().phone.replace(' ', '')"><app-icon name="call" [size]="16" /> Call</a>
+    <button class="btn btn--soft" type="button" (click)="message()"><app-icon name="mail" [size]="16" /> Message</button>
+  </div>
+</div>
+
+<div class="card card--static row member-stats">
+  <app-progress-ring [value]="paidPercent()" [size]="74" [thickness]="8" />
+  <div class="member-stats__text">
+    <span class="muted">Total contributed</span>
+    <b>₹<span [appCountUp]="member().totalPaid"></span></b>
+    <span class="muted">{{ member().pending ? '₹' + (member().pending | inr) + ' pending this month' : 'All dues cleared 🎉' }}</span>
+  </div>
+</div>
+
+<div class="card card--static">
+  @for (r of info(); track r.label) {
+    <div class="info-row"><span>{{ r.label }}</span><b>{{ r.value }}</b></div>
+  }
+</div>
+
+<div class="section-title">Groups</div>
+@for (g of memberGroups(); track g.id; let i = $index) {
+  <app-group-card class="reveal" [style.--i]="i" [group]="g" />
+}

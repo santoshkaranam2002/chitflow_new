@@ -1,0 +1,13 @@
+<a class="card row member-item" routerLink="/members/details" [queryParams]="{ id: member().id }">
+  <div class="row-gap">
+    <div class="avatar" [style.background]="member().color">{{ member().initials }}</div>
+    <div class="member-item__info">
+      <b class="member-item__name">{{ member().name }}</b>
+      <span class="muted">Member No: {{ member().no }}</span>
+    </div>
+  </div>
+  <span class="row-gap member-item__end">
+    <span class="pill" [ngClass]="member().status === 'Paid' ? 'pill--ok' : 'pill--pd'">{{ member().status }}</span>
+    <span class="muted member-item__chev"><app-icon name="chev" [size]="16" /></span>
+  </span>
+</a>

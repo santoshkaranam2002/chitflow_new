@@ -1,0 +1,17 @@
+<a class="card row payment-item" [routerLink]="payment().status === 'Pending' ? '/payments/make' : '/payments/receipt'" [queryParams]="{ id: payment().id }">
+  <div class="row-gap">
+    <app-icon-tile [icon]="payment().icon" [bg]="payment().bg" [color]="payment().color" />
+    <div class="payment-item__info">
+      <b class="payment-item__title">{{ payment().title }}</b>
+      <span class="muted">{{ payment().subtitle }}</span>
+    </div>
+  </div>
+  <div class="payment-item__amount">
+    <span [ngClass]="payment().sign === '+' ? 'pos' : 'neg'">{{ payment().sign }} ₹{{ payment().amount | inr }}</span>
+    @if (payment().status === 'Pending') {
+      <span class="pill pill--pd">Due {{ payment().date | date: 'dd MMM' }}</span>
+    } @else {
+      <span class="muted">{{ payment().date | date: 'dd MMM yyyy' }}</span>
+    }
+  </div>
+</a>

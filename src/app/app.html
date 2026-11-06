@@ -1,0 +1,22 @@
+<div class="stage">
+  <span class="stage__orb stage__orb--1"></span>
+  <span class="stage__orb stage__orb--2"></span>
+  <span class="stage__orb stage__orb--3"></span>
+
+  <section class="stage__brand">
+    <span class="stage__badge">Digital Chit Management</span>
+    <h1>Chit<span>Flow</span></h1>
+    <p>Together We Grow</p>
+    <ul>
+      @for (h of highlights; track h.text; let i = $index) {
+        <li [style.--i]="i"><b></b>{{ h.text }}</li>
+      }
+    </ul>
+  </section>
+
+  <div class="phone">
+    <app-status-bar />
+    <main class="viewport"><router-outlet /></main>
+    <app-toast-host />
+  </div>
+</div>

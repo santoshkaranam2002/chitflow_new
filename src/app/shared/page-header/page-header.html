@@ -1,0 +1,8 @@
+<div class="page-header">
+  <button class="icon-btn page-header__back" type="button" (click)="back()" aria-label="Go back"><app-icon name="back" [size]="22" /></button>
+  <div class="page-header__title">
+    <h2>{{ title() }}</h2>
+    @if (subtitle()) { <span class="muted">{{ subtitle() }}</span> }
+  </div>
+  <div class="page-header__actions"><ng-content /></div>
+</div>

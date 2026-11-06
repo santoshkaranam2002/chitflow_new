@@ -1,0 +1,26 @@
+<app-page-header title="Help &amp; Support" subtitle="We are here for you" />
+
+<div class="input-group help-search"><app-icon name="search" [size]="18" /><input placeholder="Search for help…" [(ngModel)]="query" /></div>
+
+<div class="section-title">Frequently asked</div>
+<div class="help-faqs">
+  @for (f of faqs(); track f.question; let i = $index) {
+    <div class="help-faq" [class.help-faq--open]="open() === i" [style.--i]="i">
+      <button type="button" class="help-faq__q" (click)="flip(i)" [attr.aria-expanded]="open() === i">
+        <span>{{ f.question }}</span>
+        <span class="help-faq__chev"><app-icon name="chevdown" [size]="18" /></span>
+      </button>
+      <div class="help-faq__a"><p>{{ f.answer }}</p></div>
+    </div>
+  } @empty {
+    <app-empty-state icon="help" title="No answers found" text="Try different keywords or contact our team." />
+  }
+</div>
+
+<div class="section-title">Contact us</div>
+<div class="help__contact">
+  @for (c of contacts; track c.label) {
+    <a class="btn btn--soft help__card" [href]="c.href"><app-icon [name]="c.icon" [size]="20" /> <b>{{ c.label }}</b><small>{{ c.hint }}</small></a>
+  }
+  <button class="btn btn--soft help__card" type="button" (click)="chat()"><app-icon name="chat" [size]="20" /> <b>Live chat</b><small>Online now</small></button>
+</div>

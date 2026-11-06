@@ -1,0 +1,14 @@
+@use 'global' as *;
+:host { display: block; }
+.members-reveal {
+  display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 0.4s $ease-out, opacity 0.3s;
+  > * { overflow: hidden; min-height: 0; }
+  &--open { grid-template-rows: 1fr; opacity: 1; margin-bottom: 12px; }
+  .input-group { margin-bottom: 0; }
+}
+.members-filter { padding: 2px; }
+.members-summary {
+  display: flex; gap: 16px; margin: -2px 2px 12px; font-size: 12px; color: $muted; font-weight: 600;
+  span { display: flex; align-items: center; gap: 6px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; &--ok { background: $success; } &--pd { background: #f5a524; } }
+}

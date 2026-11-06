@@ -1,0 +1,14 @@
+@use 'global' as *;
+:host { display: block; position: relative; z-index: 3; }
+.bottom-nav {
+  display: flex; background: $card; border-top: 1px solid $line; padding: 6px 6px 12px; box-shadow: 0 -8px 24px rgba(30, 40, 70, 0.05);
+  &__item {
+    position: relative; flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; padding-top: 6px;
+    color: $muted; font-size: 10px; font-weight: 500; transition: color 0.25s;
+    &::before { content: ''; position: absolute; top: -7px; left: 30%; right: 30%; height: 3px; border-radius: 0 0 4px 4px; background: $gradient-h; transform: scaleX(0); transition: transform 0.4s $ease-spring; }
+    &:active .bottom-nav__icon { transform: scale(0.85); }
+    &--active { color: $primary; font-weight: 700; &::before { transform: scaleX(1); } .bottom-nav__icon { background: $soft; transform: translateY(-2px); } }
+  }
+  &__icon { position: relative; display: flex; padding: 5px 14px; border-radius: 14px; transition: background 0.3s, transform 0.35s $ease-spring; }
+  &__dot { position: absolute; top: 3px; right: 12px; width: 8px; height: 8px; border-radius: 50%; background: $danger; border: 2px solid $card; }
+}

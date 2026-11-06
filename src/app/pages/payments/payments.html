@@ -1,0 +1,35 @@
+<app-page-header title="Payments" subtitle="Track every contribution">
+  <button class="icon-btn" type="button" aria-label="Filter"><app-icon name="filter" [size]="20" /></button>
+</app-page-header>
+
+<app-tabs [options]="tabs()" [(value)]="tab" />
+
+<div class="card card--static row payments-summary">
+  <div class="payments-summary__text">
+    <span class="muted">Total Paid</span>
+    <b class="payments__total">₹ <span [appCountUp]="totalPaid()"></span></b>
+    <span class="pill pill--ok"><app-icon name="up" [size]="10" [stroke]="3.4" /> This Month</span>
+  </div>
+  <div class="chart chart--mini">
+    @for (h of bars; track $index) {
+      <div [style.--i]="$index" [title]="months[$index]"><i [style.height.px]="(h / maxBar) * 56"></i></div>
+    }
+  </div>
+</div>
+
+@if (dueTotal() > 0 && tab() === 'all') {
+  <button class="payments-due" type="button" (click)="tab.set('pending')">
+    <app-icon name="alert" [size]="18" />
+    <span><b>₹{{ dueTotal() | inr }}</b> due in the next few days</span>
+    <app-icon name="chev" [size]="16" />
+  </button>
+}
+
+<a class="btn" routerLink="/payments/make"><app-icon name="card" [size]="18" /> Make Payment</a>
+
+<div class="section-title">{{ tab() === 'pending' ? 'Upcoming Dues' : 'Payment History' }}</div>
+@for (p of visible(); track p.id; let i = $index) {
+  <app-payment-item class="reveal" [style.--i]="i" [payment]="p" />
+} @empty {
+  <app-empty-state icon="check" title="All caught up" text="You have no pending payments." />
+}

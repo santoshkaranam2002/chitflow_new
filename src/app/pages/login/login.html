@@ -1,0 +1,53 @@
+<div class="screen login">
+  <span class="login__blob login__blob--1"></span>
+  <span class="login__blob login__blob--2"></span>
+
+  <div class="login__brand">
+    <app-logo [size]="74" [glow]="true" />
+    <h1>Chit<span>Flow</span></h1>
+    <p class="muted">Together We Grow</p>
+  </div>
+
+  <div class="login__form">
+    <h2>Welcome back 👋</h2>
+    <p class="muted login__sub">Login to manage your chit groups</p>
+
+    <div class="input-group login__field" style="--i: 1">
+      <app-icon name="phone" [size]="18" />
+      <input type="tel" placeholder="Mobile number" [(ngModel)]="mobile" autocomplete="tel" />
+    </div>
+    <div class="input-group login__field" style="--i: 2">
+      <app-icon name="lock" [size]="18" />
+      <input [type]="showPassword() ? 'text' : 'password'" placeholder="Password" [(ngModel)]="password" autocomplete="current-password" />
+      <button class="icon-btn" type="button" (click)="showPassword.set(!showPassword())" [attr.aria-label]="showPassword() ? 'Hide password' : 'Show password'">
+        <app-icon [name]="showPassword() ? 'eyeoff' : 'eye'" [size]="18" />
+      </button>
+    </div>
+
+    <div class="row login__meta">
+      <button class="login__remember" type="button" (click)="remember.set(!remember())">
+        <span class="login__check" [class.login__check--on]="remember()"><app-icon name="check" [size]="12" [stroke]="3.2" /></span>
+        Remember me
+      </button>
+      <a class="login__forgot" routerLink="/forgot-password">Forgot password?</a>
+    </div>
+
+    <button class="btn" [class.btn--loading]="loading()" type="button" (click)="login()">
+      @if (loading()) { <span class="spin"></span> Signing in… } @else { Login <app-icon name="arrow" [size]="18" /> }
+    </button>
+
+    <div class="login__divider"><span>or</span></div>
+
+    <button class="btn btn--soft login__bio" type="button" (click)="biometric()">
+      <app-icon name="fingerprint" [size]="20" /> Login with biometrics
+    </button>
+
+    <p class="muted login__foot">New here? <a routerLink="/register">Register</a></p>
+  </div>
+
+  <div class="login__trust">
+    @for (t of trust; track t.label) {
+      <span><app-icon [name]="t.icon" [size]="14" />{{ t.label }}</span>
+    }
+  </div>
+</div>

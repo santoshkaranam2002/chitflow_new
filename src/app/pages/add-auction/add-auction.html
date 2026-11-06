@@ -1,0 +1,31 @@
+<app-page-header title="Add Auction" subtitle="Schedule the next bidding round" />
+
+<div class="aa-summary">
+  <div><small>Chit value</small><b>₹{{ group().value | inr }}</b></div>
+  <div><small>Commission</small><b>₹{{ commissionAmount() | inr }}</b></div>
+  <div><small>Members</small><b>{{ group().members }}</b></div>
+</div>
+
+<label class="label">Select group</label>
+<select class="input" [(ngModel)]="groupId">
+  @for (g of groups(); track g.id) { <option [value]="g.id">{{ g.name }}</option> }
+</select>
+
+<div class="aa-grid">
+  <div><label class="label">Auction date</label><input class="input" type="date" [(ngModel)]="date" /></div>
+  <div><label class="label">Auction time</label><input class="input" type="time" [(ngModel)]="time" /></div>
+</div>
+
+<label class="label">Minimum bid (₹)</label>
+<input class="input" type="number" [(ngModel)]="minBid" />
+
+<label class="label">Foreman commission</label>
+<div class="chips">
+  @for (r of rates; track r) { <button class="chip" type="button" [class.chip--active]="commission() === r" (click)="commission.set(r)">{{ r }}%</button> }
+</div>
+
+<label class="label">Notes (optional)</label>
+<input class="input" placeholder="Any instructions" [(ngModel)]="notes" />
+
+<div class="spacer"></div>
+<button class="btn" type="button" (click)="schedule()"><app-icon name="cal" [size]="18" /> Schedule Auction</button>

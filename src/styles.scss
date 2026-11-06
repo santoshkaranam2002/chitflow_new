@@ -1,0 +1,10 @@
+// ChitFlow – global stylesheet (design system).
+// Reusable tokens/mixins live in styles/_variables.scss + _mixins.scss and are imported by every
+// component stylesheet through:   @use 'global' as *;
+// Page-specific styles stay in each component's own .scss file.
+@use 'theme';
+@use 'animations';
+@use 'base';
+@use 'layout';
+@use 'components';
+@use 'forms';

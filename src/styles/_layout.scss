@@ -1,0 +1,21 @@
+@use 'global' as *;
+
+app-root { display: block; width: 100%; height: 100%; }
+
+// Routed page fills the phone; <router-outlet> itself takes no space.
+.viewport {
+  flex: 1; min-height: 0; display: flex; flex-direction: column; position: relative;
+  > router-outlet { display: none; }
+  > router-outlet ~ * { flex: 1; min-height: 0; display: flex; flex-direction: column; animation: page-in 0.45s $ease-out backwards; }
+}
+
+// Scrollable content area (used by every page)
+.screen {
+  flex: 1; overflow-y: auto; padding: 14px 16px 24px; background: $bg; scroll-behavior: smooth; overscroll-behavior: contain;
+  @include hide-scrollbar;
+  router-outlet { display: none; }
+  router-outlet ~ * { display: block; animation: page-in 0.45s $ease-out backwards; }
+}
+
+// Entrance helpers: <div class="reveal" style="--i: 2">
+.reveal { @include reveal; }

@@ -1,0 +1,7 @@
+<div class="confetti" aria-hidden="true">
+  @for (p of pieces; track $index) {
+    <i [style.left.%]="p.left" [style.width.px]="p.size" [style.height.px]="p.round ? p.size : p.size * 0.5" [style.background]="p.color"
+      [style.borderRadius]="p.round ? '50%' : '2px'" [style.animationDelay.s]="p.delay" [style.animationDuration.s]="p.duration"
+      [style.--dx.px]="p.dx" [style.--rot.deg]="p.rot"></i>
+  }
+</div>

@@ -1,0 +1,21 @@
+<app-confetti [count]="46" />
+<app-page-header title="Auction Result">
+  <button class="icon-btn" type="button" (click)="share()" aria-label="Share"><app-icon name="share" [size]="20" /></button>
+</app-page-header>
+
+<div class="hero result-hero">
+  <span class="hero__sheen"></span>
+  <div class="result-hero__rays"></div>
+  <div class="result-hero__trophy"><app-icon name="trophy" [size]="32" /></div>
+  <small>Winner</small>
+  <b class="result-hero__name">{{ result().winner }}</b>
+  <div class="result-hero__prize"><small>Prize amount</small><b>₹<span [appCountUp]="prize()"></span></b></div>
+</div>
+
+<div class="card card--static">
+  @for (r of rows(); track r.label; let i = $index) {
+    <div class="info-row result-row" [style.--i]="i"><span>{{ r.label }}</span><b>{{ r.value }}</b></div>
+  }
+</div>
+<div class="spacer"></div>
+<a class="btn" routerLink="/auctions">Back to Auctions</a>

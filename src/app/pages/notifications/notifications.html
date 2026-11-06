@@ -1,0 +1,23 @@
+<app-page-header title="Notifications" [subtitle]="service.unreadCount() ? service.unreadCount() + ' unread' : 'You are all caught up'">
+  <button class="icon-btn" type="button" [disabled]="!service.unreadCount()" (click)="service.markAllRead()" aria-label="Mark all as read"><app-icon name="check" [size]="22" [stroke]="2.6" /></button>
+</app-page-header>
+
+<app-tabs [options]="tabs()" [(value)]="tab" />
+
+@for (s of sections(); track s.title) {
+  <div class="section-title notif-section">{{ s.title }}</div>
+  @for (n of s.items; track n.id; let i = $index) {
+    <div class="card card--static row-gap notif reveal" [class.notif--unread]="!n.read" [style.--i]="i" (click)="service.markRead(n.id)" (keydown.enter)="service.markRead(n.id)" tabindex="0" role="button">
+      <app-icon-tile [icon]="n.icon" [bg]="tone(n).bg" [color]="tone(n).color" [size]="40" />
+      <div class="notif__text">
+        <b>{{ n.title }}</b>
+        <span class="notif__body">{{ n.text }}</span>
+        <span class="muted">{{ n.time }}</span>
+      </div>
+      <button class="icon-btn notif__close" type="button" (click)="service.remove(n.id); $event.stopPropagation()" aria-label="Dismiss"><app-icon name="close" [size]="14" /></button>
+      @if (!n.read) { <i class="notif__dot"></i> }
+    </div>
+  }
+} @empty {
+  <app-empty-state icon="bell" title="Nothing new" text="We will let you know when something important happens." />
+}

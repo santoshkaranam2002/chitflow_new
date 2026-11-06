@@ -1,0 +1,32 @@
+<app-page-header title="My Profile" />
+
+<div class="profile-head">
+  <div class="profile-head__cover"></div>
+  <div class="profile-head__avatar">
+    <div class="avatar avatar--xl avatar--primary">{{ profile().initials }}</div>
+    <button class="profile-head__cam" type="button" (click)="photo()" aria-label="Change photo"><app-icon name="camera" [size]="14" /></button>
+  </div>
+  <b class="profile-head__name">{{ profile().name }}</b>
+  <span class="muted">Member since {{ profile().memberSince | date: 'MMM yyyy' }}</span>
+  <div class="profile-head__stats">
+    <div><b>{{ groupCount }}</b><span>Groups</span></div>
+    <div><b>₹60K</b><span>Paid</span></div>
+    <div><b>Gold</b><span>Tier</span></div>
+  </div>
+</div>
+
+<label class="label">Full name</label>
+<div class="input-group"><app-icon name="user" [size]="18" /><input [(ngModel)]="name" /></div>
+<label class="label">Mobile</label>
+<div class="input-group"><app-icon name="phone" [size]="18" /><input type="tel" [(ngModel)]="mobile" /></div>
+<label class="label">Email</label>
+<div class="input-group"><app-icon name="mail" [size]="18" /><input type="email" [(ngModel)]="email" /></div>
+<label class="label">City</label>
+<div class="input-group"><app-icon name="pin" [size]="18" /><input [(ngModel)]="city" /></div>
+
+<div class="spacer"></div>
+<button class="btn" type="button" [class.profile-save--dirty]="dirty()" (click)="save()"><app-icon name="check" [size]="18" /> Save Changes</button>
+<div class="spacer"></div>
+<a class="btn btn--soft" routerLink="/settings"><app-icon name="settings" [size]="18" /> Settings</a>
+<div class="spacer"></div>
+<button class="btn btn--ghost profile-logout" type="button" (click)="logout()"><app-icon name="logout" [size]="18" /> Logout</button>

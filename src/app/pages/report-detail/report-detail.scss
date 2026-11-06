@@ -1,0 +1,7 @@
+@use 'global' as *;
+:host { display: block; }
+.report-summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; .card { margin-bottom: 12px; padding: 12px; display: flex; flex-direction: column; gap: 4px; b { font-size: 20px; letter-spacing: -0.02em; } } }
+.table-wrap { margin-bottom: 14px; }
+tbody tr { @include reveal(70ms, 150ms); }
+.report-bar { margin: 5px 0 0; height: 4px; min-width: 70px; }
+.report-total td { font-weight: 800; border-top: 2px solid $line; background: $soft; &:first-child { border-radius: 10px 0 0 10px; } &:last-child { border-radius: 0 10px 10px 0; } }

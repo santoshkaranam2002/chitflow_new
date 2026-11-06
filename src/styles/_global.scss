@@ -1,0 +1,4 @@
+// Single import for every component stylesheet:   @use 'global' as *;
+// (resolved through "stylePreprocessorOptions.includePaths" in angular.json)
+@forward 'variables';
+@forward 'mixins';

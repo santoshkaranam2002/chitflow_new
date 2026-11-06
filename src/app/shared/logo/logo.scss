@@ -1,0 +1,7 @@
+@use 'global' as *;
+:host { display: inline-flex; }
+.logo {
+  position: relative; display: flex; align-items: center; justify-content: center; color: $white;
+  background: $gradient-rich; box-shadow: 0 8px 18px rgba(249, 80, 20, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  &--glow { animation: pulse-ring-primary 2.4s infinite, float 4s ease-in-out infinite; }
+}

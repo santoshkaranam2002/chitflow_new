@@ -1,0 +1,44 @@
+// ChitFlow design tokens (SCSS side). Colours that must adapt to dark mode are CSS variables
+// (defined in _theme.scss) so every component follows the theme automatically.
+$font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+// ---- brand (static) ----
+$primary: #f97316;
+$primary-deep: #ff4d1c;
+$primary-light: #ffb067;
+$gold: #ffc24b;
+$gradient: linear-gradient(135deg, $primary-deep, $primary);
+$gradient-h: linear-gradient(90deg, $primary-deep, $primary);
+$gradient-rich: linear-gradient(135deg, #ff3d00 0%, #ff6a1a 48%, #ffa043 100%);
+$gradient-dark: linear-gradient(135deg, #2a1a12, #4a2512);
+
+// ---- semantic (static) ----
+$success: #22a55b;
+$danger: #e5432d;
+$info: #2b8ad6;
+$purple: #6c55d9;
+$white: #fff;
+
+// ---- theme aware (CSS variables) ----
+$bg: var(--cf-bg);
+$card: var(--cf-card);
+$text: var(--cf-text);
+$muted: var(--cf-muted);
+$line: var(--cf-line);
+$surface: var(--cf-surface);
+$soft: var(--cf-soft);
+$soft-line: var(--cf-soft-line);
+$shadow-card: var(--cf-shadow-card);
+$shadow-pop: var(--cf-shadow-pop);
+$shadow-glow: 0 10px 24px rgba(249, 115, 22, 0.35);
+
+// ---- shape & motion ----
+$radius-card: 18px;
+$radius-input: 14px;
+$ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+$ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+// ---- phone frame ----
+$phone-width: 390px;
+$phone-height: 844px;
+$phone-breakpoint: 430px;

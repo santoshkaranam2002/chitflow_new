@@ -1,0 +1,18 @@
+@use 'global' as *;
+:host { display: block; position: relative; }
+.receipt {
+  filter: drop-shadow(0 12px 24px rgba(30, 40, 70, 0.1)); animation: fade-up 0.7s $ease-out backwards 0.1s; margin-bottom: 14px;
+  &__top, &__body { background: $card; padding: 20px 18px; border: 1px solid $line; }
+  &__top { border-radius: 22px 22px 0 0; border-bottom: 0; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 4px; background: linear-gradient(180deg, var(--cf-ok-bg), $card 70%); }
+  &__body { border-radius: 0 0 22px 22px; border-top: 0; padding-top: 8px; }
+  &__tick { width: 72px; height: 72px; margin-bottom: 6px; animation: pop-in 0.6s $ease-out backwards 0.3s;
+    circle { fill: $card; stroke: $success; stroke-width: 2.4; stroke-dasharray: 160; stroke-dashoffset: 160; animation: draw 0.8s 0.3s ease forwards; }
+    path { fill: none; stroke: $success; stroke-width: 4.2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 40; stroke-dashoffset: 40; animation: draw 0.5s 0.9s ease forwards; } }
+  &__amount { font-size: 34px; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+  // perforated tear line with side notches
+  &__tear { position: relative; height: 0; i { position: absolute; top: -11px; width: 22px; height: 22px; border-radius: 50%; background: $bg; border: 1px solid $line; z-index: 1;
+      &:first-child { left: -12px; clip-path: inset(0 0 0 50%); } &:last-child { right: -12px; clip-path: inset(0 50% 0 0); } }
+    span { position: absolute; left: 18px; right: 18px; top: 0; border-top: 2px dashed $line; } }
+  &__barcode { display: flex; justify-content: center; align-items: stretch; gap: 2px; height: 34px; margin-top: 14px; opacity: 0.55; i { background: $text; border-radius: 1px; } }
+}
+.receipt-actions { display: flex; gap: 10px; .btn { flex: 1; } }

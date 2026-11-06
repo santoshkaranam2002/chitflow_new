@@ -1,0 +1,31 @@
+<app-page-header [title]="title()" subtitle="Updated just now">
+  <button class="icon-btn" type="button" (click)="download()" aria-label="Download"><app-icon name="download" [size]="20" /></button>
+</app-page-header>
+
+<div class="report-summary">
+  <div class="card card--static"><span class="muted">Groups</span><b [appCountUp]="groupsCount"></b></div>
+  <div class="card card--static"><span class="muted">Members</span><b [appCountUp]="membersCount"></b></div>
+  <div class="card card--static"><span class="muted">Collected</span><b class="pos" [appCountUp]="totalCollected / 1000" suffix="K"></b></div>
+</div>
+
+<div class="card card--static table-wrap">
+  <table class="table">
+    <thead><tr><th>Group</th><th>Members</th><th>Collected</th><th>Pending</th></tr></thead>
+    <tbody>
+      @for (r of rows; track r.group; let i = $index) {
+        <tr [style.--i]="i">
+          <td>
+            <b>{{ r.group }}</b>
+            <div class="bar report-bar"><i [style.width.%]="percent(r.collected, r.pending)"></i></div>
+          </td>
+          <td>{{ r.members }}</td>
+          <td class="pos">₹{{ r.collected | inr }}</td>
+          <td class="neg">₹{{ r.pending | inr }}</td>
+        </tr>
+      }
+      <tr class="report-total"><td>Total</td><td></td><td class="pos">₹{{ totalCollected | inr }}</td><td class="neg">₹{{ totalPending | inr }}</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<button class="btn" type="button" (click)="download()"><app-icon name="download" [size]="18" /> Download PDF</button>

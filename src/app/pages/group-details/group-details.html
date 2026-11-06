@@ -1,0 +1,49 @@
+<app-page-header title="Group Details" [subtitle]="'Month ' + group().month + ' of ' + group().duration">
+  <button class="icon-btn" type="button" (click)="invite()" aria-label="Share invite"><app-icon name="share" [size]="20" /></button>
+  <button class="icon-btn" type="button" (click)="calendar()" aria-label="Add to calendar"><app-icon name="cal" [size]="20" /></button>
+</app-page-header>
+
+<div class="hero row group-hero">
+  <span class="hero__sheen"></span>
+  <div class="row-gap">
+    <div class="group-hero__icon"><app-icon [name]="group().icon" [size]="30" /></div>
+    <div class="group-hero__text">
+      <b class="group-hero__name">{{ group().name }}</b>
+      <b class="group-hero__amount">₹<span [appCountUp]="group().value"></span></b>
+      <span class="group-hero__tag">Active • {{ group().commission }}% commission</span>
+    </div>
+  </div>
+  <app-progress-ring [value]="percent()" [size]="66" [thickness]="7" [light]="true" />
+</div>
+
+<div class="card card--static row group-stats">
+  <div><b>{{ group().paid }}/{{ group().members }}</b><br><span class="muted">Paid Members</span></div>
+  <div><b>₹{{ group().monthly | inr }}</b><br><span class="muted">Monthly</span></div>
+  <div><b>{{ group().nextAuction | date: 'dd MMM yyyy' }}</b><br><span class="muted">Next Auction</span></div>
+</div>
+
+<div class="section-title">Chit Timeline</div>
+<div class="card card--static group-timeline">
+  <div class="group-timeline__dots">
+    @for (m of months(); track m) {
+      <i [class.done]="m < group().month" [class.now]="m === group().month" [style.--i]="m" [title]="'Month ' + m"></i>
+    }
+  </div>
+  <div class="row"><span class="muted">{{ group().month - 1 }} months completed</span><span class="muted">{{ group().duration - group().month + 1 }} to go</span></div>
+</div>
+
+<div class="section-title">Group Overview</div>
+<div class="card card--static">
+  @for (r of overview(); track r.label) {
+    <div class="info-row">
+      <span class="row-gap group-overview__label"><app-icon [name]="r.icon" [size]="18" /><em>{{ r.label }}</em></span>
+      <b>{{ r.value }}</b>
+    </div>
+  }
+</div>
+<a class="btn" routerLink="/members"><app-icon name="users" [size]="18" /> View Members</a>
+
+<div class="row section-title"><span>Recent Payments</span><a class="link" routerLink="/payments">View All</a></div>
+@for (p of recent; track p.id) { <app-payment-item [payment]="p" /> }
+
+<a class="btn btn--soft group-details__auction" routerLink="/auctions"><app-icon name="gavel" [size]="18" /> View Auctions</a>

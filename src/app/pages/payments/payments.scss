@@ -1,0 +1,10 @@
+@use 'global' as *;
+:host { display: block; }
+.payments {
+  &__total { font-size: 28px; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+}
+.payments-summary { background: linear-gradient(135deg, $card, $soft); &__text { display: flex; flex-direction: column; gap: 5px; align-items: flex-start; } }
+.payments-due {
+  width: 100%; display: flex; align-items: center; gap: 10px; padding: 12px 14px; margin-bottom: 12px; border-radius: 14px; background: var(--cf-pd-bg); color: var(--cf-pd); font-size: 12px; text-align: left;
+  span { flex: 1; } animation: bump 0.6s 0.6s;
+}

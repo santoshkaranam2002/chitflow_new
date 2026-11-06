@@ -1,0 +1,18 @@
+@use 'global' as *;
+:host { display: block; }
+.group-hero {
+  gap: 14px;
+  &__icon { width: 60px; height: 60px; border-radius: 22px; background: $white; color: $primary-deep; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15); animation: pop-in 0.6s $ease-out backwards 0.2s; }
+  &__text { display: flex; flex-direction: column; gap: 1px; }
+  &__name { font-size: 18px; }
+  &__amount { font-size: 22px; letter-spacing: -0.02em; }
+  &__tag { font-size: 10px; opacity: 0.9; margin-top: 3px; }
+}
+.group-stats { text-align: center; b { font-size: 13px; } > div { flex: 1; line-height: 1.7; } }
+.group-timeline {
+  &__dots { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px;
+    i { width: 14px; height: 14px; border-radius: 5px; background: $surface; animation: pop-in 0.4s $ease-out backwards; animation-delay: calc(var(--i) * 30ms);
+      &.done { background: $gradient; } &.now { background: $card; border: 2px solid $primary; animation: pop-in 0.4s $ease-out backwards, pulse-ring-primary 1.8s infinite 0.6s; } } }
+}
+.group-overview__label { gap: 10px; color: $muted; em { font-style: normal; color: $text; } }
+.group-details__auction { margin-top: 4px; }

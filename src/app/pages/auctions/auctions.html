@@ -1,0 +1,39 @@
+<app-page-header title="Auctions" subtitle="Bid, win and save">
+  <button class="icon-btn" type="button" (click)="calendar()" aria-label="Calendar"><app-icon name="cal" [size]="20" /></button>
+  <a class="icon-btn icon-btn--primary" routerLink="/auctions/add" aria-label="Add auction"><app-icon name="plus" [size]="22" /></a>
+</app-page-header>
+
+@if (featured(); as f) {
+  <a class="card card--soft row upcoming" [class.upcoming--live]="f.status === 'Live'" [routerLink]="f.status === 'Live' ? '/auctions/live' : '/auctions/details'" [queryParams]="{ id: f.id }">
+    <div class="row-gap">
+      <app-icon-tile [icon]="f.icon" bg="#ffffff" color="#f26a1b" [size]="48" />
+      <div class="upcoming__info">
+        <b class="upcoming__label">{{ f.status === 'Live' ? '● Live Auction' : 'Upcoming Auction' }}</b>
+        <b>{{ f.name }}</b>
+        <span class="muted">{{ f.date | date: 'dd MMM yyyy' }} • {{ f.date | date: 'h:mm a' }}</span>
+        @if (f.status !== 'Live') { <span class="upcoming__count">⏱ {{ countdown() }}</span> }
+      </div>
+    </div>
+    <span class="btn btn--sm">{{ f.status === 'Live' ? 'Join Now' : 'View Details' }}</span>
+  </a>
+}
+
+<app-tabs [options]="tabs()" [(value)]="tab" [small]="true" />
+
+<div class="section-title">{{ tab() === 'all' ? 'All Auctions' : tab() + ' Auctions' }}</div>
+@for (a of visible(); track a.id; let i = $index) {
+  <a class="card reveal" [style.--i]="i" routerLink="/auctions/details" [queryParams]="{ id: a.id }">
+    <div class="row">
+      <div class="row-gap">
+        <app-icon-tile [icon]="a.icon" [bg]="a.bg" [color]="a.color" />
+        <div class="auction-info"><b>{{ a.name }}</b><span class="muted">{{ a.date | date: 'dd MMM yyyy' }} • {{ a.date | date: 'h:mm a' }}</span><b class="auction-info__value">₹{{ a.value | inr }}</b></div>
+      </div>
+      <div class="auction-side">
+        <span class="pill" [ngClass]="statusClass(a.status)">{{ a.status }}</span>
+        <span class="muted">{{ a.paid }}/{{ a.total }} members</span>
+      </div>
+    </div>
+  </a>
+} @empty {
+  <app-empty-state icon="gavel" title="No auctions here" text="Schedule a new auction for any of your groups." />
+}

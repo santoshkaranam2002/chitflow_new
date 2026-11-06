@@ -1,0 +1,22 @@
+@use 'global' as *;
+:host { display: block; }
+.settings {
+  &__title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: $muted; margin-top: 4px; }
+  &__list { padding: 4px 14px; }
+  &__toggle { width: 100%; padding: 12px 0; font-size: 14px; text-align: left; border-bottom: 1px dashed $line; &:last-child { border-bottom: 0; } }
+  &__label { display: flex; flex-direction: column; gap: 2px; b { font-size: 13px; } }
+  &__link { gap: 12px; }
+  &__icon { color: $primary; display: flex; background: $soft; padding: 8px; border-radius: 12px; }
+}
+.settings-theme {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 8px;
+  &__opt { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 8px 8px 10px; border-radius: 16px; border: 1.5px solid $line; background: $card; font-size: 12px; font-weight: 600; color: $muted; transition: all 0.3s $ease-out;
+    app-icon { display: none; }
+    &:active { transform: scale(0.96); }
+    &--active { border-color: $primary; color: $primary; background: $soft; box-shadow: 0 8px 18px rgba(249, 115, 22, 0.16); } }
+  &__preview { width: 100%; height: 46px; border-radius: 10px; display: flex; flex-direction: column; gap: 4px; padding: 7px; border: 1px solid $line;
+    i { height: 6px; border-radius: 3px; &:nth-child(1) { width: 60%; } &:nth-child(2) { width: 90%; } &:nth-child(3) { width: 40%; } }
+    &[data-mode='light'] { background: #fff; i { background: #e3e5ea; &:first-child { background: $primary; } } }
+    &[data-mode='dark'] { background: #12141b; i { background: #2a2f3f; &:first-child { background: $primary; } } }
+    &[data-mode='system'] { background: linear-gradient(105deg, #fff 50%, #12141b 50%); i { background: #8a90a0; &:first-child { background: $primary; } } } }
+}

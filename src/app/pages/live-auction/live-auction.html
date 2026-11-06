@@ -1,0 +1,51 @@
+<app-page-header title="Live Auction" [subtitle]="watching() + ' members watching'">
+  @if (closed()) { <span class="pill pill--up">CLOSED</span> } @else { <span class="pill pill--live">LIVE</span> }
+</app-page-header>
+
+<div class="hero live-hero" [class.live-hero--urgent]="urgent()">
+  <span class="hero__sheen"></span>
+  <small>{{ auction().name }} • ₹{{ auction().value | inr }}</small>
+  <div class="live-hero__timer">
+    <app-progress-ring [value]="timeLeftPercent()" [size]="132" [thickness]="8" [light]="true" [label]="clock()" />
+  </div>
+  <small>{{ closed() ? 'Bidding has ended' : 'Time remaining' }}</small>
+  <div class="live-hero__bid" [attr.data-pulse]="pulse()">
+    <small>Highest discount bid</small>
+    <b class="live-hero__amount">₹{{ top().amount | inr }}</b>
+    <small>by {{ top().name }}{{ top().isYou ? ' (You)' : '' }}</small>
+  </div>
+</div>
+
+@if (youLeading()) {
+  <div class="live-status live-status--win"><app-icon name="trophy" [size]="16" /> You are leading the auction</div>
+} @else {
+  <div class="live-status live-status--out"><app-icon name="alert" [size]="16" /> You have been outbid – raise your bid!</div>
+}
+
+<div class="section-title">Bid History</div>
+<div class="live-history">
+  @for (b of bids(); track b.id; let first = $first) {
+    <div class="card card--static row live-bid" [class.live-bid--top]="first" [class.live-bid--you]="b.isYou">
+      <span class="row-gap live-bid__who">
+        <i class="live-bid__rank">{{ first ? '👑' : '•' }}</i>
+        <span>{{ b.name }}{{ b.isYou ? ' (You)' : '' }}<small class="muted">{{ b.time }}</small></span>
+      </span>
+      <b>₹{{ b.amount | inr }}</b>
+    </div>
+  }
+</div>
+
+<label class="label">Your bid (₹)</label>
+<div class="live-bidbox">
+  <button type="button" class="live-bidbox__btn" (click)="raise(-1000)" aria-label="Decrease"><app-icon name="minus" [size]="18" [stroke]="3" /></button>
+  <input type="number" [(ngModel)]="bidInput" aria-label="Your bid" />
+  <button type="button" class="live-bidbox__btn" (click)="raise(1000)" aria-label="Increase"><app-icon name="plus" [size]="18" [stroke]="3" /></button>
+</div>
+<div class="chips live-quick">
+  @for (q of quick; track q) { <button class="chip" type="button" (click)="raise(q)">+ ₹{{ q | inr }}</button> }
+</div>
+
+<div class="spacer"></div>
+<button class="btn" type="button" [disabled]="closed()" (click)="place()"><app-icon name="gavel" [size]="18" /> Place Bid</button>
+<div class="spacer"></div>
+<button class="btn btn--soft" type="button" (click)="declare()">Close Auction &amp; Declare Winner</button>

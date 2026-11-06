@@ -1,0 +1,12 @@
+@use 'global' as *;
+:host { display: inline-flex; flex: none; }
+.ring {
+  position: relative; display: flex; align-items: center; justify-content: center;
+  svg { transform: rotate(-90deg); }
+  &__track { stroke: $surface; }
+  &__bar { transition: stroke-dashoffset 1.2s $ease-out; animation: ring-in 1.2s $ease-out backwards; }
+  &__label { position: absolute; font-weight: 800; font-size: var(--ring-font, 13px); letter-spacing: var(--ring-spacing, normal); font-variant-numeric: tabular-nums; color: $text; }
+  &--light &__track { stroke: rgba(255, 255, 255, 0.25); }
+  &--light &__label { color: $white; }
+}
+@keyframes ring-in { from { stroke-dashoffset: 400; } }

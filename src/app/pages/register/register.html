@@ -1,0 +1,43 @@
+<div class="screen register">
+  <app-page-header title="Create Account" subtitle="Start growing with your chit groups" />
+
+  <div class="register__banner">
+    <div class="register__spark"><app-icon name="sparkle" [size]="22" /></div>
+    <div><b>Join 10,000+ members</b><span>Free to join • Takes under a minute</span></div>
+  </div>
+
+  <label class="label">Full name</label>
+  <div class="input-group"><app-icon name="user" [size]="18" /><input placeholder="Your name" [(ngModel)]="name" autocomplete="name" /></div>
+
+  <label class="label">Mobile number</label>
+  <div class="input-group"><app-icon name="phone" [size]="18" /><input type="tel" placeholder="10-digit number" [(ngModel)]="mobile" autocomplete="tel" /></div>
+
+  <label class="label">Email</label>
+  <div class="input-group"><app-icon name="mail" [size]="18" /><input type="email" placeholder="you&#64;email.com" [(ngModel)]="email" autocomplete="email" /></div>
+
+  <label class="label">Password</label>
+  <div class="input-group">
+    <app-icon name="lock" [size]="18" />
+    <input [type]="showPassword() ? 'text' : 'password'" placeholder="Min 6 characters" [(ngModel)]="password" autocomplete="new-password" />
+    <button class="icon-btn" type="button" (click)="showPassword.set(!showPassword())"><app-icon [name]="showPassword() ? 'eyeoff' : 'eye'" [size]="18" /></button>
+  </div>
+
+  @if (password()) {
+    <div class="register__strength" [attr.data-score]="strength().score">
+      <div class="register__meter">
+        @for (s of segments; track s) { <i [class.on]="strength().score >= s"></i> }
+      </div>
+      <span>{{ strength().label }}</span>
+    </div>
+  }
+
+  <button class="register__agree" type="button" (click)="agree.set(!agree())">
+    <span class="register__check" [class.register__check--on]="agree()"><app-icon name="check" [size]="12" [stroke]="3.2" /></span>
+    I agree to the Terms &amp; Privacy Policy
+  </button>
+
+  <button class="btn" [class.btn--loading]="loading()" type="button" (click)="register()">
+    @if (loading()) { <span class="spin"></span> Creating account… } @else { Register }
+  </button>
+  <p class="muted register__foot">Already have an account? <a routerLink="/login">Login</a></p>
+</div>

@@ -1,0 +1,16 @@
+@use 'global' as *;
+:host { display: block; margin-bottom: 14px; }
+.tabs {
+  position: relative; display: grid; grid-template-columns: repeat(var(--n), 1fr); background: $surface; border-radius: 24px; padding: 4px;
+  &__indicator {
+    position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc((100% - 8px) / var(--n)); border-radius: 20px; background: $gradient-h;
+    box-shadow: 0 6px 14px rgba(249, 115, 22, 0.35); transform: translateX(calc(var(--idx) * 100%)); transition: transform 0.45s $ease-spring;
+  }
+  &__tab {
+    position: relative; z-index: 1; padding: 10px 6px; border-radius: 20px; color: $muted; font-weight: 600; font-size: 13px; transition: color 0.3s;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    em { font-style: normal; font-size: 10px; background: rgba(128, 128, 128, 0.18); padding: 1px 6px; border-radius: 8px; }
+    &--active { color: $white; em { background: rgba(255, 255, 255, 0.28); } }
+  }
+  &--sm .tabs__tab { font-size: 11px; padding: 9px 4px; }
+}

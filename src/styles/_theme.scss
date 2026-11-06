@@ -1,0 +1,42 @@
+// Light / dark theme tokens. ThemeService sets <html data-theme="light|dark">.
+:root {
+  color-scheme: light;
+  --cf-bg: #ffffff;
+  --cf-card: #ffffff;
+  --cf-text: #1f2430;
+  --cf-muted: #8a90a0;
+  --cf-line: #eceef3;
+  --cf-surface: #f1f2f6;
+  --cf-soft: #fff1e8;
+  --cf-soft-line: #ffd9c2;
+  --cf-shadow-card: 0 3px 12px rgba(30, 40, 70, 0.06);
+  --cf-shadow-pop: 0 10px 28px rgba(30, 40, 70, 0.12);
+  --cf-ok-bg: #dcf5e6;   --cf-ok: #1b8a4b;
+  --cf-pd-bg: #ffe7d1;   --cf-pd: #d9730d;
+  --cf-up-bg: #eef0f4;   --cf-up: #7a8090;
+  --cf-dn-bg: #dff0fb;   --cf-dn: #2b8ad6;
+  --cf-bad-bg: #fde2e2;  --cf-bad: #e5432d;
+  --cf-stage-a: #fff3ea; --cf-stage-b: #ffe1cc; --cf-stage-text: #3a2a20;
+  --cf-frame: #e3e5ea;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --cf-bg: #12141b;
+  --cf-card: #1b1e29;
+  --cf-text: #eef0f6;
+  --cf-muted: #8f96aa;
+  --cf-line: #2a2f3f;
+  --cf-surface: #252a39;
+  --cf-soft: rgba(249, 115, 22, 0.14);
+  --cf-soft-line: rgba(249, 115, 22, 0.32);
+  --cf-shadow-card: 0 4px 16px rgba(0, 0, 0, 0.32);
+  --cf-shadow-pop: 0 12px 30px rgba(0, 0, 0, 0.5);
+  --cf-ok-bg: rgba(34, 165, 91, 0.18);   --cf-ok: #4ad58b;
+  --cf-pd-bg: rgba(249, 115, 22, 0.18);  --cf-pd: #ffa14f;
+  --cf-up-bg: rgba(255, 255, 255, 0.08); --cf-up: #a3a9bb;
+  --cf-dn-bg: rgba(43, 138, 214, 0.2);   --cf-dn: #66b6f2;
+  --cf-bad-bg: rgba(229, 67, 45, 0.2);   --cf-bad: #ff7a64;
+  --cf-stage-a: #14121a; --cf-stage-b: #241510; --cf-stage-text: #f3e9e2;
+  --cf-frame: #2c3040;
+}

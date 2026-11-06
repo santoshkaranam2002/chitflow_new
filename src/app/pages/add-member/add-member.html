@@ -1,0 +1,29 @@
+<app-page-header title="Add Member" subtitle="Invite someone to your chit group" />
+
+<div class="am-preview">
+  <div class="avatar avatar--xl" [class.am-preview__avatar--filled]="initials()">
+    @if (initials()) { {{ initials() }} } @else { <app-icon name="user" [size]="32" /> }
+  </div>
+  <span class="muted">{{ name() || 'New member' }}</span>
+</div>
+
+<label class="label">Full name</label>
+<div class="input-group"><app-icon name="user" [size]="18" /><input placeholder="Member name" [(ngModel)]="name" /></div>
+
+<label class="label">Mobile number</label>
+<div class="input-group"><span class="am-prefix">+91</span><input type="tel" placeholder="10-digit number" [(ngModel)]="mobile" /></div>
+
+<label class="label">Assign to group</label>
+<select class="input" [(ngModel)]="groupId">
+  @for (g of groups(); track g.id) { <option [value]="g.id">{{ g.name }}</option> }
+</select>
+
+<label class="label">Payment status</label>
+<div class="chips">
+  @for (s of statuses; track s) {
+    <button class="chip" type="button" [class.chip--active]="status() === s" (click)="status.set(s)">{{ s }}</button>
+  }
+</div>
+
+<div class="spacer"></div>
+<button class="btn" type="button" (click)="add()"><app-icon name="plus" [size]="18" /> Add Member</button>

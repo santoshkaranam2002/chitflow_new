@@ -1,0 +1,9 @@
+<div class="tabs" [class.tabs--sm]="small()" role="tablist" [style.--n]="options().length" [style.--idx]="index()">
+  <span class="tabs__indicator"></span>
+  @for (o of options(); track o.id) {
+    <button type="button" role="tab" class="tabs__tab" [class.tabs__tab--active]="o.id === value()" [attr.aria-selected]="o.id === value()" (click)="value.set(o.id)">
+      {{ o.label }}
+      @if (o.count !== undefined) { <em>{{ o.count }}</em> }
+    </button>
+  }
+</div>

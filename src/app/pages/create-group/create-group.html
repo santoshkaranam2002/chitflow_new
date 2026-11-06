@@ -1,0 +1,51 @@
+<app-page-header title="Create Chit Group" subtitle="Set it up in under a minute" />
+
+<div class="hero cg-preview">
+  <span class="hero__sheen"></span>
+  <small>Live preview</small>
+  <b class="cg-preview__name">{{ name() || 'Your group name' }}</b>
+  <div class="cg-preview__value">₹{{ value() | inr }}</div>
+  <div class="cg-preview__stats">
+    <div><small>Monthly</small><b>₹{{ monthly() | inr }}</b></div>
+    <div><small>Members</small><b>{{ members() }}</b></div>
+    <div><small>Duration</small><b>{{ duration() }} mo</b></div>
+  </div>
+</div>
+
+<label class="label">Group name</label>
+<input class="input" placeholder="e.g. Dream Home" [(ngModel)]="name" />
+<label class="label">Chit value (₹)</label>
+<input class="input" type="number" [(ngModel)]="value" />
+
+<div class="cg-steppers">
+  <div>
+    <label class="label">Total members</label>
+    <div class="cg-step">
+      <button type="button" (click)="step('members', -1)" aria-label="Fewer members"><app-icon name="minus" [size]="16" [stroke]="3" /></button>
+      <b>{{ members() }}</b>
+      <button type="button" (click)="step('members', 1)" aria-label="More members"><app-icon name="plus" [size]="16" [stroke]="3" /></button>
+    </div>
+  </div>
+  <div>
+    <label class="label">Duration (months)</label>
+    <div class="cg-step">
+      <button type="button" (click)="step('duration', -1)" aria-label="Shorter"><app-icon name="minus" [size]="16" [stroke]="3" /></button>
+      <b>{{ duration() }}</b>
+      <button type="button" (click)="step('duration', 1)" aria-label="Longer"><app-icon name="plus" [size]="16" [stroke]="3" /></button>
+    </div>
+  </div>
+</div>
+
+<label class="label">Start date</label>
+<input class="input" type="date" [(ngModel)]="start" />
+<label class="label">Auction type</label>
+<div class="chips">
+  @for (t of types; track t) {
+    <button class="chip" type="button" [class.chip--active]="type() === t" (click)="type.set(t)">{{ t }}</button>
+  }
+</div>
+
+<div class="cg-note"><app-icon name="info" [size]="16" /> Each member pays ₹{{ monthly() | inr }} every month. Total pool per month: ₹{{ pool() | inr }}.</div>
+
+<div class="spacer"></div>
+<button class="btn" type="button" (click)="create()"><app-icon name="plus" [size]="18" /> Create Group</button>

@@ -1,0 +1,16 @@
+@use 'global' as *;
+:host { display: block; }
+.auction-hero {
+  gap: 14px;
+  &__icon { width: 58px; height: 58px; border-radius: 22px; background: $white; color: $primary-deep; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15); animation: pop-in 0.6s $ease-out backwards 0.2s; }
+  &__text { flex: 1; display: flex; flex-direction: column; }
+  &__name { font-size: 18px; }
+  &__amount { font-size: 22px; letter-spacing: -0.02em; }
+  &__status { align-self: flex-start; }
+}
+.auction-count {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 14px;
+  div { @include reveal(70ms); display: flex; flex-direction: column; align-items: center; padding: 12px 4px; border-radius: 16px; background: $card; border: 1px solid $line; box-shadow: $shadow-card; }
+  b { font-size: 22px; font-weight: 800; font-variant-numeric: tabular-nums; @include text-gradient($gradient); letter-spacing: -0.03em; }
+  span { font-size: 10px; color: $muted; margin-top: 2px; }
+}

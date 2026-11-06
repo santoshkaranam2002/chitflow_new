@@ -1,0 +1,39 @@
+<app-page-header title="Settings" subtitle="Personalise your ChitFlow" />
+
+<div class="section-title settings__title">Appearance</div>
+<div class="settings-theme">
+  @for (t of themes; track t.id) {
+    <button type="button" class="settings-theme__opt" [class.settings-theme__opt--active]="theme.mode() === t.id" (click)="theme.set(t.id)">
+      <span class="settings-theme__preview" [attr.data-mode]="t.id"><i></i><i></i><i></i></span>
+      <app-icon [name]="t.icon" [size]="14" /> {{ t.label }}
+    </button>
+  }
+</div>
+
+<div class="section-title settings__title">Notifications &amp; security</div>
+<div class="card card--static settings__list">
+  @for (t of user.toggles(); track t.id) {
+    <button type="button" class="row settings__toggle" (click)="toggle(t.id, t.label)">
+      <span class="row-gap">
+        <span class="settings__icon"><app-icon [name]="t.icon" [size]="18" /></span>
+        <span class="settings__label"><b>{{ t.label }}</b><span class="muted">{{ t.hint }}</span></span>
+      </span>
+      <span class="switch" [class.switch--on]="t.on"><i></i></span>
+    </button>
+  }
+</div>
+
+<label class="label">Language</label>
+<div class="chips">
+  @for (l of languages; track l) {
+    <button type="button" class="chip" [class.chip--active]="user.language() === l" (click)="user.language.set(l)">{{ l }}</button>
+  }
+</div>
+
+<div class="spacer"></div>
+@for (l of links; track l.label) {
+  <a class="card row" [routerLink]="l.path">
+    <span class="row-gap settings__link"><span class="settings__icon"><app-icon [name]="l.icon" [size]="20" /></span>{{ l.label }}</span>
+    <span class="muted"><app-icon name="chev" [size]="18" /></span>
+  </a>
+}
