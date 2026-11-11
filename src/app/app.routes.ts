@@ -1,9 +1,6 @@
 import { Routes } from '@angular/router';
 
-/**
- * Every page is lazy loaded and lives in its own folder (page .ts / .html / .scss).
- * Query params (e.g. /groups/details?id=g1) are bound to the page's signal inputs.
- */
+
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 

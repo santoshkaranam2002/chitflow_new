@@ -1,9 +1,21 @@
 @use 'global' as *;
 :host { display: block; }
+
 .groups-search {
   display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 0.4s $ease-out, opacity 0.3s;
   .input-group { overflow: hidden; min-height: 0; margin-bottom: 0; }
-  &--open { grid-template-rows: 1fr; opacity: 1; margin-bottom: 12px; .input-group { border-width: 1px; } }
+  &--open { grid-template-rows: 1fr; opacity: 1; margin-bottom: 12px; }
   &:not(&--open) .input-group { border-width: 0; padding: 0 14px; }
 }
-.groups-sort { margin-bottom: 14px; flex-wrap: nowrap; overflow-x: auto; @include hide-scrollbar; .chip { white-space: nowrap; padding: 7px 13px; } }
+
+.groups-hero {
+  display: flex; flex-direction: column; gap: 2px;
+  &__value { font-size: 32px; font-weight: 800; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; margin-bottom: 12px; }
+  &__stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+    div { @include glass(0.14); border-radius: 14px; padding: 9px 10px; display: flex; flex-direction: column; gap: 2px; }
+    small { font-size: 10px; } b { font-size: 16px; } }
+}
+
+.groups-sort { margin-bottom: 16px; flex-wrap: nowrap; overflow-x: auto; @include hide-scrollbar; .chip { white-space: nowrap; padding: 7px 14px; } }
+
+.groups-list { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); app-group-card .card { margin-bottom: 0; } }

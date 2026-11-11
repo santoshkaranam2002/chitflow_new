@@ -1,10 +1,20 @@
 @use 'global' as *;
 
-:host { display: block; height: 100%; }
+// Soft backdrop behind the app column (follows light / dark theme)
+:host {
+  display: flex; justify-content: center; height: 100%;
+  background: linear-gradient(135deg, var(--cf-stage-a), var(--cf-stage-b));
+}
 
-// Full-screen app (no phone frame)
+// The app: full height, mobile-width column, centred on big screens
 .app {
   position: relative; display: flex; flex-direction: column;
-  width: 100%; height: 100%; overflow: hidden;
+  width: 100%; max-width: 480px; height: 100%; overflow: hidden;
   background: $bg; transition: background 0.3s;
+
+  // subtle edges only when there is space on both sides (web)
+  @media (min-width: 481px) {
+    border-left: 1px solid $line; border-right: 1px solid $line;
+    box-shadow: 0 0 60px rgba(120, 50, 10, 0.15);
+  }
 }

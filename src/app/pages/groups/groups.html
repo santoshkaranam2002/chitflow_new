@@ -1,10 +1,21 @@
-<app-page-header title="Chit Groups" [subtitle]="visible().length + (visible().length === 1 ? ' group' : ' groups') + ' • ₹' + (totalValue() | inr)">
+<app-page-header title="Chit Groups" subtitle="Manage and track every group">
   <button class="icon-btn" type="button" (click)="toggleSearch()" aria-label="Search"><app-icon [name]="searching() ? 'close' : 'search'" [size]="20" /></button>
   <a class="icon-btn icon-btn--primary" routerLink="/groups/create" aria-label="Create group"><app-icon name="plus" [size]="22" /></a>
 </app-page-header>
 
 <div class="groups-search" [class.groups-search--open]="searching()">
   <div class="input-group"><app-icon name="search" [size]="18" /><input placeholder="Search groups…" [(ngModel)]="query" /></div>
+</div>
+
+<div class="hero groups-hero">
+  <span class="hero__sheen"></span>
+  <small>Total chit value</small>
+  <b class="groups-hero__value">₹ <span [appCountUp]="totalValue()"></span></b>
+  <div class="groups-hero__stats">
+    <div><small>Groups</small><b>{{ visible().length }}</b></div>
+    <div><small>Members</small><b>{{ totalMembers() }}</b></div>
+    <div><small>Avg. paid</small><b>{{ avgProgress() }}%</b></div>
+  </div>
 </div>
 
 <app-tabs [options]="tabs()" [(value)]="tab" />
@@ -15,8 +26,10 @@
   }
 </div>
 
-@for (g of visible(); track g.id; let i = $index) {
-  <app-group-card class="reveal" [style.--i]="i" [group]="g" />
-} @empty {
-  <app-empty-state icon="users" title="No groups found" text="Try a different search or create a new chit group." />
-}
+<div class="groups-list">
+  @for (g of visible(); track g.id; let i = $index) {
+    <app-group-card class="reveal" [style.--i]="i" [group]="g" />
+  } @empty {
+    <app-empty-state icon="users" title="No groups found" text="Try a different search or create a new chit group." />
+  }
+</div>

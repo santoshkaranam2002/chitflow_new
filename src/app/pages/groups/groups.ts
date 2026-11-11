@@ -4,18 +4,18 @@ import { RouterLink } from '@angular/router';
 
 import { TabOption } from '../../core/models';
 import { GroupService } from '../../core/services/group.service';
+import { CountUp } from '../../shared/count-up/count-up';
 import { EmptyState } from '../../shared/empty-state/empty-state';
 import { GroupCard } from '../../shared/group-card/group-card';
 import { Icon } from '../../shared/icon/icon';
 import { PageHeader } from '../../shared/page-header/page-header';
-import { InrPipe } from '../../shared/pipes/inr.pipe';
 import { Tabs } from '../../shared/tabs/tabs';
 
 type Sort = 'recent' | 'value' | 'soon';
 
 @Component({
   selector: 'app-groups',
-  imports: [FormsModule, RouterLink, EmptyState, GroupCard, Icon, PageHeader, InrPipe, Tabs],
+  imports: [FormsModule, RouterLink, CountUp, EmptyState, GroupCard, Icon, PageHeader, Tabs],
   templateUrl: './groups.html',
   styleUrl: './groups.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -32,10 +32,10 @@ export class Groups {
     { id: 'all', label: 'All Groups', count: this.service.groups().length },
     { id: 'mine', label: 'My Groups', count: this.service.mine().length },
   ]);
-  protected readonly sorts: { id: Sort; label: string; icon: string }[] = [
-    { id: 'recent', label: 'Recent', icon: 'clock' },
-    { id: 'value', label: 'Highest value', icon: 'coin' },
-    { id: 'soon', label: 'Auction soon', icon: 'gavel' },
+  protected readonly sorts: { id: Sort; label: string }[] = [
+    { id: 'recent', label: 'Recent' },
+    { id: 'value', label: 'Highest value' },
+    { id: 'soon', label: 'Auction soon' },
   ];
 
   protected readonly visible = computed(() => {
@@ -48,7 +48,13 @@ export class Groups {
       default: return list;
     }
   });
+
   protected readonly totalValue = computed(() => this.visible().reduce((s, g) => s + g.value, 0));
+  protected readonly totalMembers = computed(() => this.visible().reduce((s, g) => s + g.members, 0));
+  protected readonly avgProgress = computed(() => {
+    const list = this.visible();
+    return list.length ? Math.round(list.reduce((s, g) => s + (g.paid / g.members) * 100, 0) / list.length) : 0;
+  });
 
   protected toggleSearch(): void {
     this.searching.update((v) => !v);
