@@ -1,0 +1,20 @@
+@use 'global' as *;
+:host { display: none; }
+
+.top {
+  display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 12px clamp(16px, 3vw, 40px);
+  background: $card; border-bottom: 1px solid $line;
+
+  &__search { flex: 1; max-width: 440px; display: flex; align-items: center; gap: 10px; padding: 0 14px; border-radius: 14px; border: 1px solid $line; background: $bg; color: $muted; transition: all 0.2s;
+    input { flex: 1; border: 0; outline: 0; background: none; padding: 11px 0; font-size: 14px; color: $text; }
+    &:focus-within { border-color: $primary; box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.14); color: $primary; } }
+
+  &__actions { display: flex; align-items: center; gap: 12px; }
+  &__btn { position: relative; width: 42px; height: 42px; border-radius: 14px; border: 1px solid $line; background: $card; color: $text; display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+    &:hover { border-color: $primary; color: $primary; transform: translateY(-1px); } }
+  &__badge { position: absolute; top: -6px; right: -6px; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; background: $danger; color: #fff; font-size: 10px; font-weight: 800; font-style: normal; display: flex; align-items: center; justify-content: center; border: 2px solid $card; }
+  &__user { display: flex; align-items: center; gap: 10px; padding: 4px 12px 4px 4px; border-radius: 22px; border: 1px solid $line; background: $card; font-size: 13px; transition: all 0.2s; &:hover { border-color: $primary; } }
+  &__avatar { width: 32px; height: 32px; border-radius: 50%; background: $gradient; color: #fff; font-weight: 800; font-size: 11px; display: flex; align-items: center; justify-content: center; }
+}
+
+@media (min-width: 900px) { :host { display: block; } }

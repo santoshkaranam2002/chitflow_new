@@ -1,1 +1,9 @@
 :host { display: flex; flex-direction: column; position: relative; overflow: hidden; }
+
+.shell { flex: 1; min-height: 0; display: flex; }
+.shell__main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+
+// Web: sidebar + top bar replace the bottom navigation and the drawer
+@media (min-width: 900px) {
+  .shell__bottom, .shell__drawer { display: none; }
+}

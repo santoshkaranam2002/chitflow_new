@@ -1,0 +1,27 @@
+<aside class="side">
+  <a class="side__brand" routerLink="/home">
+    <app-logo [size]="40" />
+    <div><b>ChitFlow</b><span>Digital chit platform</span></div>
+  </a>
+
+  <nav class="side__nav">
+    @for (s of sections; track s.title) {
+      <div class="side__title"><span>{{ s.title }}</span></div>
+      @for (l of s.links; track l.path) {
+        <a class="side__link" [routerLink]="l.path" routerLinkActive="side__link--active">
+          <span class="side__icon"><app-icon [name]="l.icon" [size]="18" /></span>
+          {{ l.label }}
+          @if (l.badge && unread() > 0) { <em class="side__badge">{{ unread() }}</em> }
+        </a>
+      }
+    }
+  </nav>
+
+  <div class="side__user">
+    <a class="side__me" routerLink="/profile">
+      <span class="side__avatar">{{ user().initials }}</span>
+      <span class="side__who"><b>{{ user().name }}</b><small>Chit organizer</small></span>
+    </a>
+    <button class="side__logout" type="button" (click)="logout()" aria-label="Logout"><app-icon name="logout" [size]="18" /></button>
+  </div>
+</aside>

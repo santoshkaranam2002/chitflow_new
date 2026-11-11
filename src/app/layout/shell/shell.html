@@ -1,3 +1,9 @@
-<div class="screen"><router-outlet /></div>
-<app-bottom-nav (more)="drawerOpen.set(true)" />
-<app-drawer [open]="drawerOpen()" (closed)="drawerOpen.set(false)" />
+<div class="shell">
+  <app-sidebar />
+  <div class="shell__main">
+    <app-topbar />
+    <div class="screen"><router-outlet /></div>
+    <app-bottom-nav class="shell__bottom" (more)="drawerOpen.set(true)" />
+  </div>
+</div>
+<app-drawer class="shell__drawer" [open]="drawerOpen()" (closed)="drawerOpen.set(false)" />

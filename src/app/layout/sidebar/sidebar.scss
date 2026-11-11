@@ -1,0 +1,33 @@
+@use 'global' as *;
+:host { display: none; }
+
+// Always-dark navy sidebar (web only)
+.side {
+  width: 250px; height: 100%; display: flex; flex-direction: column; flex: none; padding: 18px 12px 12px;
+  background: linear-gradient(180deg, #0f1428 0%, #151b36 100%); color: #e8ebf7; border-right: 1px solid rgba(255, 255, 255, 0.06);
+
+  &__brand { display: flex; align-items: center; gap: 12px; padding: 4px 8px 18px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    b { display: block; font-size: 18px; letter-spacing: -0.02em; color: #fff; } span { font-size: 11px; color: #8d95b8; } }
+
+  &__nav { flex: 1; overflow-y: auto; padding: 6px 0; @include hide-scrollbar; }
+  &__title { display: flex; align-items: center; gap: 10px; margin: 18px 10px 8px; font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #7f88ad;
+    &::after { content: ''; flex: 1; height: 1px; background: rgba(255, 255, 255, 0.08); } }
+
+  &__link {
+    display: flex; align-items: center; gap: 12px; padding: 9px 10px; margin-bottom: 4px; border-radius: 14px; font-size: 14px; font-weight: 600; color: #cdd3ee;
+    border: 1px solid transparent; transition: background 0.2s, color 0.2s, transform 0.2s $ease-out;
+    &:hover { background: rgba(255, 255, 255, 0.06); color: #fff; transform: translateX(2px); }
+    &--active { background: linear-gradient(135deg, rgba(255, 77, 28, 0.28), rgba(249, 115, 22, 0.14)); border-color: rgba(249, 115, 22, 0.45); color: #fff;
+      .side__icon { background: $gradient; color: #fff; box-shadow: 0 6px 14px rgba(249, 80, 20, 0.4); } }
+  }
+  &__icon { width: 34px; height: 34px; border-radius: 11px; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.07); color: #aeb6d8; transition: all 0.25s; }
+  &__badge { margin-left: auto; font-style: normal; font-size: 10px; font-weight: 800; min-width: 20px; padding: 2px 6px; text-align: center; border-radius: 10px; background: $primary; color: #fff; }
+
+  &__user { display: flex; align-items: center; gap: 6px; padding: 8px; border-radius: 16px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.08); }
+  &__me { flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px; }
+  &__avatar { width: 38px; height: 38px; border-radius: 12px; background: $gradient; color: #fff; font-weight: 800; font-size: 13px; display: flex; align-items: center; justify-content: center; flex: none; }
+  &__who { min-width: 0; display: flex; flex-direction: column; b { font-size: 13px; color: #fff; @include truncate; } small { font-size: 11px; color: #8d95b8; } }
+  &__logout { width: 34px; height: 34px; border-radius: 10px; color: #aeb6d8; display: flex; align-items: center; justify-content: center; transition: all 0.2s; &:hover { background: rgba(229, 67, 45, 0.18); color: #ff7a64; } }
+}
+
+@media (min-width: 900px) { :host { display: block; height: 100%; } }
